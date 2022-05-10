@@ -14,12 +14,16 @@ import com.example.demo1.Model.Business;
 import com.example.demo1.Model.Tip;
 import com.example.demo1.Repository.BusinessRepository;
 import com.example.demo1.Repository.TipRepository;
+import com.example.demo1.Service.BusinessService;
 
 @Controller
 public class BusinessController {
 
 	@Autowired
 	private BusinessRepository businessRepo;
+	
+	@Autowired
+	private BusinessService businessService; 
 	
 	@Autowired
 	private TipRepository tipRepo;
@@ -32,21 +36,26 @@ public class BusinessController {
 	}
 	
 	@RequestMapping(value = "toBusinessTips", method = RequestMethod.POST)
-	public String toBusinessTips(Model model, @RequestParam String business_id) {
-		
+	public String toBusinessTips(Model model, @RequestParam String businessId) {
 		List<Tip> tipList = tipRepo.findAll();
 		
 		ArrayList<Tip> businessTipList = new ArrayList<>();
 		
 		for (Tip e : tipList) {
-			if(business_id.equals(e.business_id)) {
+			if(businessId.equals(e.businessId)) {
 				businessTipList.add(e);
 			}
 		}
-		
 		model.addAttribute("data", businessTipList);
 		return "businessTipsTable";
-		
 	}
+	
+	@RequestMapping(value = "searchForBusiness", method = RequestMethod.POST)
+	public String searchForName(Model model, @RequestParam String text, @RequestParam String type) {
+		model.addAttribute("data", businessService.findBusiness(text, type));
+		return "BusinessTable";	
+	}
+	
+	
 	
 }

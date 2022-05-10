@@ -13,35 +13,30 @@ import javax.persistence.Table;
 public class Tip {
 
 	@Id
-	@Column(name = "user_id")
-	public String user_id;
+	public String userId;
 	
-	@Column(name = "business_id")
-	public String business_id;
+	public String businessId;
 	
-	@Column(name = "text")
 	public String text;
 	
-	@Column(name = "date")
 	public String date; 			//DATETIME
 	
-	@Column(name = "compliment_count")
-	public int compliment_count;
+	public int complimentCount;
 
-	public String getUser_id() {
-		return user_id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getBusiness_id() {
-		return business_id;
+	public String getBusinessId() {
+		return businessId;
 	}
 
-	public void setBusiness_id(String business_id) {
-		this.business_id = business_id;
+	public void setBusinessId(String businessId) {
+		this.businessId = businessId;
 	}
 
 	public String getText() {
@@ -60,13 +55,16 @@ public class Tip {
 		this.date = date;
 	}
 
-	public int getCompliment_count() {
-		return compliment_count;
+	public int getComplimentCount() {
+		return complimentCount;
 	}
 
-	public void setCompliment_count(int compliment_count) {
-		this.compliment_count = compliment_count;
+	public void setComplimentCount(int complimentCount) {
+		this.complimentCount = complimentCount;
 	}
+
+
+
 	
 	
 }

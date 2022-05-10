@@ -1,13 +1,7 @@
 package com.example.demo1.Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 public class Business {
@@ -16,55 +10,40 @@ public class Business {
 	}
 	
 	@Id
-	@Column(name = "business_id")
-	public String business_id;
+	public String businessId;
 	
-	@Column(name = "name")
 	public String name;
 	
-	@Column(name = "address")
 	public String address;
 	
-	@Column(name = "city")
 	public String city;
 	
-	@Column(name = "state")
 	public String state;
 	
-	@Column(name = "postal_code")
-	public int postal_code;
+	public int postalCode;
 	
-	@Column(name = "latitude")
 	public String latitude;
 	
-	@Column(name = "longitude")
 	public String longitude;
 	
-	@Column(name = "stars")
 	public double stars;
 	
-	@Column(name = "review_count")
-	public int review_count;
+	public int reviewCount;
 	
-	@Column(name = "is_open")
-	public boolean is_open;
+	public boolean isOpen;
 	
+	public String attributes;				
 	
-	@Column(name = "attributes")
-	public String attributes;				// ArrayList
-	
-	@Column(name = "categories")			// HashMap
 	public String categories;
 	
-	@Column(name = "hours")
 	public String hours;
 
 	public String getBusinessId() {
-		return business_id;
+		return businessId;
 	}
 
 	public void setBusinessId(String businessId) {
-		this.business_id = business_id;
+		this.businessId = businessId;
 	}
 
 	public String getName() {
@@ -99,12 +78,12 @@ public class Business {
 		this.state = state;
 	}
 
-	public int getPostal_code() {
-		return postal_code;
+	public int getPostalCode() {
+		return postalCode;
 	}
 
-	public void setPostal_code(int postal_code) {
-		this.postal_code = postal_code;
+	public void setPostalCode(int postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public String getLatitude() {
@@ -131,20 +110,20 @@ public class Business {
 		this.stars = stars;
 	}
 
-	public int getReview_count() {
-		return review_count;
+	public int getReviewCount() {
+		return reviewCount;
 	}
 
-	public void setReview_count(int review_count) {
-		this.review_count = review_count;
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
 	}
 
-	public boolean isIs_open() {
-		return is_open;
+	public boolean isOpen() {
+		return isOpen;
 	}
 
-	public void setIs_open(boolean is_open) {
-		this.is_open = is_open;
+	public void setOpen(boolean isOpen) {
+		this.isOpen = isOpen;
 	}
 
 	public String getAttributes() {
@@ -170,7 +149,6 @@ public class Business {
 	public void setHours(String hours) {
 		this.hours = hours;
 	}
-	
-	
+
 	
 }
