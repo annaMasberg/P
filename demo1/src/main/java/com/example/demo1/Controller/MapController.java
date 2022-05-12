@@ -1,18 +1,19 @@
 package com.example.demo1.Controller;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo1.Model.Business;
+import com.example.demo1.Model.Location;
 import com.example.demo1.Repository.BusinessRepository;
+import com.example.demo1.Service.BusinessService;
 
 @Controller
 public class MapController {
@@ -20,48 +21,36 @@ public class MapController {
 	@Autowired
 	BusinessRepository businessRepository;
 	
-	 @Value("${tomtom.apikey}")
-	 private String tomTomApiKey;
+	@Autowired
+	BusinessService businessService;
+	
+	@Value("${tomtom.apikey}")
+	private String tomTomApiKey;
 	 
 	 
-	 private static class Location {
-		 private final double[] lnglat;
-		 private final String description;
-		 public Location(double[] lnglat, String description) {
-		   this.lnglat = lnglat;
-		   this.description = description;
-		 }
-
-		 public double[] getLnglat() {
-		   return lnglat;
-		 }
-
-		 public String getDescription() {
-		   return description;
-		 }
-
-		}
+	 @RequestMapping(value = "toMap", method = RequestMethod.POST)
+	 public String businesstoMap(Model model, @RequestParam String businessId) {
+	   model.addAttribute("apikey", tomTomApiKey);
+	   List<Location> lista = businessService.coolLocations(businessId);
+	   model.addAttribute("coolLocations", lista);
+	   return "map";
+	 }
 	 
-	 private List<Location> coolLocations() {
-		List<Business> list = businessRepository.findAll();
-		ArrayList<Location> coordinations = new ArrayList<Location>();
-		for (Business business : list) {
-			/*business.longitude = business.longitude.replace(".", "");
-			business.latitude = business.latitude.replace(".", "");
-			*/
-			int i1 = business.longitude.indexOf(".");
-			int i2 = business.latitude.indexOf(".");
-			coordinations.add(new Location(new double[] {Double.parseDouble(business.longitude.substring(0, i1 + 1) + business.longitude.substring(i1).replaceAll("\\.", "")),Double.parseDouble(business.latitude.substring(0, i2 + 1) + business.latitude.substring(i2).replaceAll("\\.", ""))}, business.name));
-		}
-		 return coordinations;
-		}
-	 
-	 @GetMapping("/home")
+	 @GetMapping("/filteredMap")
 	 public String homePage(Model model) {
 	   model.addAttribute("apikey", tomTomApiKey);
-	   List<Location> lista = coolLocations();
-	   model.addAttribute("coolLocations", lista);
-	   return "home";
+	   return "filteredMap";
 	 }
+	 
+	 
+	@RequestMapping(value = "filterBusiness", method = RequestMethod.POST)
+	public String filterBusiness(Model model, @RequestParam String text, @RequestParam String type) {
+		   model.addAttribute("apikey", tomTomApiKey);
+		   List<Location> lista = businessService.filteredLocations(text, type);
+		   model.addAttribute("coolLocations", lista);
+		return "filteredMap";	
+		}
+	 
+	 
 	 
 }

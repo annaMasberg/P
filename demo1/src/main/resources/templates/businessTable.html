@@ -44,7 +44,7 @@
 						<th>Categories</th>
 						<th>Hours</th>
 						<th>Tips</th>
-
+						<th>Map</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -64,6 +64,11 @@
 						<td> <input type="submit" value="Tips" /> <td/>
 						<input type="hidden" name="businessId" th:value="${business.businessId}"/>
 						</form>
+						<form action="/toMap" method="POST">
+						<td> <input type="submit" value="see in Map" /> <td/>
+						<input type="hidden" name="businessId" th:value="${business.businessId}"/>
+						</form>
+						
 					</tr>
 				</tbody>
 				

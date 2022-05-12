@@ -15,6 +15,8 @@ public interface BusinessRepository extends JpaRepository<Business, Long> {
 	List<Business> findByState(String state);
 	List<Business> findByPostalCode(int postalCode);
 	List<Business> findByStars(double stars);
+	List<Business> findByBusinessId(String businessId);
+	Business findOneByBusinessId(String businessId);
 
 
 

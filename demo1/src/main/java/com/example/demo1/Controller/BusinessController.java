@@ -20,38 +20,34 @@ import com.example.demo1.Service.BusinessService;
 public class BusinessController {
 
 	@Autowired
-	private BusinessRepository businessRepo;
+	private BusinessRepository businessRepository;
 	
 	@Autowired
 	private BusinessService businessService; 
 	
 	@Autowired
-	private TipRepository tipRepo;
+	private TipRepository tipRepository;
 	
 	@RequestMapping("/businessTable")
 	public Model showData(Model model) {
-		List<Business> list = businessRepo.findAll();
+		List<Business> list = businessRepository.findAll();
 		model.addAttribute("data", list);
 		return model;
 	}
 	
 	@RequestMapping(value = "toBusinessTips", method = RequestMethod.POST)
 	public String toBusinessTips(Model model, @RequestParam String businessId) {
-		List<Tip> tipList = tipRepo.findAll();
-		
+		List<Tip> tipList = tipRepository.findAll();
 		ArrayList<Tip> businessTipList = new ArrayList<>();
-		
-		for (Tip e : tipList) {
-			if(businessId.equals(e.businessId)) {
-				businessTipList.add(e);
-			}
-		}
+		for (Tip tip : tipList) {
+			if(businessId.equals(tip.businessId)) {
+				businessTipList.add(tip);	}}
 		model.addAttribute("data", businessTipList);
 		return "businessTipsTable";
 	}
 	
 	@RequestMapping(value = "searchForBusiness", method = RequestMethod.POST)
-	public String searchForName(Model model, @RequestParam String text, @RequestParam String type) {
+	public String searchForBusiness(Model model, @RequestParam String text, @RequestParam String type) {
 		model.addAttribute("data", businessService.findBusiness(text, type));
 		return "BusinessTable";	
 	}
