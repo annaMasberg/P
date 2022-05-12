@@ -39,10 +39,7 @@ public class BusinessController {
 	public String toBusinessTips(Model model, @RequestParam String businessId) {
 		List<Tip> tipList = tipRepository.findAll();
 		ArrayList<Tip> businessTipList = new ArrayList<>();
-		for (Tip tip : tipList) {
-			if(businessId.equals(tip.businessId)) {
-				businessTipList.add(tip);	}}
-		model.addAttribute("data", businessTipList);
+		model.addAttribute("data", businessService.tipsForBusiness(tipList, businessTipList, businessId));
 		return "businessTipsTable";
 	}
 	
