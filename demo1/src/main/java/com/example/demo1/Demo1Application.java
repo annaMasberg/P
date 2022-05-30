@@ -9,9 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class Demo1Application implements WebMvcConfigurer{
 
-/*	@Autowired
+  /*@Autowired
 	private JdbcTemplate jbdcTemplate;
 	*/
+	
 	public void addViewController(ViewControllerRegistry registry) {
 		registry.addViewController("/index").setViewName("index");
 	}

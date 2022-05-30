@@ -73,8 +73,16 @@
 				</tbody>
 				
 			</table>
+			
 		</div>
 		
+		<nav th:if="${businessTable.totalPages > 0}" aria-label="Page navigation example" >
+			  <ul class="pagination">         
+			    <li class="page-item"><a th:href="@{/businessTable/indexPaginate(page=${data.number - 1})}" class="page-link">Zurück</a></li>			    
+			    <li class="page-item"><a th:href="@{/businessTable/indexPaginate(page=${data.number + 1})}" class="page-link">Nächste Seite</a></li>
+			  </ul>
+			</nav>
+
 		
 	</body>
 	

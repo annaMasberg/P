@@ -1,9 +1,13 @@
 package com.example.demo1.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.demo1.Model.Business;
@@ -71,6 +75,76 @@ public class BusinessService {
 			if(businessId.equals(tip.businessId)) {
 				businessTipList.add(tip);	}}
 		return businessTipList;
+	}
+	
+	public ArrayList<String> findDistinctStates(){
+		ArrayList<String> uniqueStatesList = new ArrayList<>();
+		ArrayList<String> states = new ArrayList<>();
+		List<Business> businesses = businessRepository.findAll();
+		for(Business e : businesses) {
+			states.add(e.state);
+		}
+		
+		HashSet<String> uniqueStates = new HashSet<>(states);
+
+		for (String state : uniqueStates) {
+			uniqueStatesList.add(state);
+		}
+		
+		return uniqueStatesList;
+	}
+	
+	public ArrayList<String> findDistinctCities(){
+		ArrayList<String> uniqueCitiesList = new ArrayList<>();
+		ArrayList<String> cities = new ArrayList<>();
+		List<Business> businesses = businessRepository.findAll();
+		for(Business e : businesses) {
+			cities.add(e.city);
+		}
+		
+		HashSet<String> uniqueCities = new HashSet<>(cities);
+
+		for (String city : uniqueCities) {
+			uniqueCitiesList.add(city);
+		}
+		
+		return uniqueCitiesList;
+	}
+	
+	public List<Business> filterBusiness(String name, String city, String state, Double stars){
+		
+		BusinessSpecificationsBuilder builder = new BusinessSpecificationsBuilder();
+						
+		if(name != null && !name.isBlank()) {
+			SearchCriteria searchCriteria = new SearchCriteria( "name", name );	
+			BusinessSpecifications spec1 = new BusinessSpecifications(searchCriteria);
+			builder.with(spec1);
+		}
+		
+		if(state != null && !state.isBlank()) {
+			SearchCriteria searchCriteria = new SearchCriteria( "state", state );	
+			BusinessSpecifications spec2 = new BusinessSpecifications(searchCriteria);
+			builder.with(spec2);	
+		}
+		if(city != null && !state.isBlank()) {
+			SearchCriteria searchCriteria = new SearchCriteria( "city", city );	
+			BusinessSpecifications spec3 = new BusinessSpecifications(searchCriteria);
+			builder.with(spec3);
+		}
+		/*if(stars != null && !stars.isBlank()) {
+			
+		}*/
+		
+		Specification<Business> specs = builder.build();
+		List<Business> businesses = businessRepository.findAll(specs);
+
+		
+		return businesses;
+		
+	}
+	
+	public Page<Business> searchAll(Pageable page) {
+		return  businessRepository.findAll(page);
 	}
 		
 	}
