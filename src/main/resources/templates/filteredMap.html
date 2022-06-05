@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+     xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.thymeleaf.org">
+<head>
+ <meta charset="UTF-8">
+ <title>filtered Map</title>
+ <link rel='stylesheet' type='text/css'
+       href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.63.0/maps/maps.css'>
+ <style>
+   #map {
+     width: 70vw;
+     height: 70vh;
+   }
+ </style>
+ <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.63.0/maps/maps-web.min.js'></script>
+</head>
+<body>
+			<a th:href="@{/businessTable}">Business</a><br/>
+<h1> Map </h1>
+
+				<form action="/filterBusiness" method="POST">
+					<select name="type" th:id="${type}" th:value="${type}">
+  						<option th:value="name" th:text="name">Name</option>
+  						<option th:value="city" th:text="city">City</option>
+  						<option th:value="state" th:text="state">State</option>
+  						<option th:value="postalCode" th:text="postalCode">Postal Code</option>
+  						<option th:value="stars" th:text="stars">Stars</option>
+					</select>
+  					 <input type="text" id="text" name="text" th:value="${text}">
+  					 <input type="submit" value="Submit">
+				</form>
+
+<div id='map' class='map'></div>
+<script th:inline="javascript">
+ var map = tt.map({
+   key: [[${apikey}]], // Thymeleaf at runtime
+   container: 'map',
+   style: 'tomtom://vector/1/basic-main',
+   center: [-35.4400, 37.2787],
+   zoom: 2
+ });
+ map.addControl(new tt.FullscreenControl());
+ map.addControl(new tt.NavigationControl());
+ 
+ const popupOffsets = {
+ top: [0, 0],
+ bottom: [0, -50],
+ 'bottom-right': [0, -70],
+ 'bottom-left': [0, -70],
+ left: [25, -35],
+ right: [-25, -35]
+}
+
+const coolLocations = /*[[${coolLocations}]]*/ null;
+coolLocations.forEach(location => {
+ const marker = new tt.Marker().setLngLat(location.lnglat).addTo(map);
+ const popup = new tt.Popup({offset: popupOffsets}).setHTML(location.description);
+ marker.setPopup(popup).togglePopup();
+});
+</script>
+</body>
+</html>
