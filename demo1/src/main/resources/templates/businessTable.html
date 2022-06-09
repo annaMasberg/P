@@ -3,20 +3,35 @@
 	<head>
 		<title>Business</title>
 		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"/>
 		<link rel="stylesheet" 
 			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
 			integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" 
 			crossorigin="anonymous" />
+			
 	</head>
 	
-	<body>
+	<header th:insert="fragments/menu :: Hauptmenu"></header>
 		
 		<div class="container">
 		
-			<h3>Business</h3>
+			<h3>Business</h3>		
 			
-			<hr/>
-				<form action="/searchForBusiness" method="POST">
+				<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+ filter
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+        <button type="button" class="btn-close bi bi-x-lg text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       	<form action="/searchForBusiness" method="POST">
 					<select name="type" th:id="${type}" th:value="${type}">
   						<option th:value="name" th:text="name">Name</option>
   						<option th:value="city" th:text="city">City</option>
@@ -25,11 +40,94 @@
   						<option th:value="stars" th:text="stars">Stars</option>
 					</select>
   					 <input type="text" id="text" name="text" th:value="${text}">
+  					
+				
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+         <input type="submit"  class="btn btn-primary" value="Submit">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+				
+				<form action="/creditCardViability" method="POST">
+					<button type="submit" name = "viability" class="like" value="yes">Businesses who take Credit Card</button>
+					<button type="submit" name = "viability" class="like" value="no">Businesses who don't take Credit Card</button>
+				</form>
+				
+				<form action="/hasAttribute" method="POST">
+								
+					 <label>
+					 <input type="checkbox" class="ads_Checkbox" name="attribute" value="Restaurants"/> Restaurants
+					 </label>
+               		 <label>
+					 <input type="checkbox" class="ads_Checkbox" name="attribute" value="Bars"/> Bars
+		             </label>
+                	<label>
+					 <input type="checkbox" class="ads_Checkbox" name="attribute" value="Cafes"/> Cafes
+	                </label>
+                	<label>
+					 <input type="checkbox" class="ads_Checkbox" name="attribute" value="Hotels"/> Hotels
+	                </label>
+					<button type="submit" class="like">Submit</button>
+				</form>
+
+				
+				<form action="/hasCategorie" method="POST">
+					<button type="submit" name = "categorie" value="Vegetarian" class="like">Vegetarian</button>
+					<button type="submit" name = "categorie" value="Vegan" class="like">Vegan</button>
+				</form>
+				
+				<form action="/foodOrigin" method="POST">
+					<select name="type" th:id="${type}" th:value="${type}">
+  						<option th:value="American" th:text="American">American</option>
+  						<option th:value="Italian" th:text="Italian">Italian</option>
+  						<option th:value="Vitnamese" th:text="Vietnamese">Vietnamese</option>
+  						<option th:value="Korean" th:text="Korean">Korean</option>
+  						<option th:value="Asian" th:text="Asian">Asian</option>
+  						<option th:value="Japanese" th:text="Japanese">Japanese</option>
+  						<option th:value="Chinese" th:text="Chinese">Chinese</option>
+						<option th:value="Mexican" th:text="Mexican">Mexican</option>
+						<option th:value="Moroccan" th:text="Moroccan">Moroccan</option>
+  						<option th:value="French" th:text="French">French</option>
+  						<option th:value="Filipino" th:text="Filipino">Filipino</option>
+  						<option th:value="Irish" th:text="Irish">Irish</option>
+  						<option th:value="Caribbean" th:text="Caribbean">Caribbean</option>
+  						<option th:value="Thai" th:text="Thai">Thai</option>
+  						<option th:value="Pakistani" th:text="Pakistani">Pakistani</option>
+  						<option th:value="Idian" th:text="Indian">Indian</option>
+  						<!-- <option th:value="Middle Eastern" th:text="Middle Eastern">Middle Eastern</option>
+  						<option th:value="Puerto Rican" th:text="Puerto Rican">Puerto Rican</option> -->
+  						<option th:value="Honduran" th:text="Honduran">Honduran</option>
+  						<option th:value="Spanish" th:text="Spanish">Spanish</option>
+  						<option th:value="Greek" th:text="Greek">Greek</option>
+  						<option th:value="African" th:text="African">African</option>
+  						<option th:value="Turkish" th:text="Turkish">Turkish</option>
+  						<option th:value="Lebanese" th:text="Lebanese">Lebanese</option>
+  						<option th:value="Greek" th:text="Greek">Greek</option>
+					</select>
   					 <input type="submit" value="Submit">
 				</form>
+
 			<a th:href="@{/businessTable}">Business</a><br/>
-			<table class="table table-bordered table-striped">
-			
+			<table class="table table-bordered">
+             
+             <style> tr:nth-child(odd) {
+    background-color: #00cc44;
+    }
+
+   tr:nth-child(even) {
+    background-color: white;
+    }
+
+    th {
+       background-color: white;
+    }
+		</style>	
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -74,16 +172,24 @@
 				
 			</table>
 			
-		</div>
-		
-		<nav th:if="${businessTable.totalPages > 0}" aria-label="Page navigation example" >
+			<nav th:if="${data.totalPages > 0}" aria-label="Page navigation example" >
 			  <ul class="pagination">         
-			    <li class="page-item"><a th:href="@{/businessTable/indexPaginate(page=${data.number - 1})}" class="page-link">Zurück</a></li>			    
-			    <li class="page-item"><a th:href="@{/businessTable/indexPaginate(page=${data.number + 1})}" class="page-link">Nächste Seite</a></li>
+			    <li class="page-item"><a th:href="@{/businessTable/indexPaginate(page=${data.number - 1})}" class="page-link">Next</a></li>			    
+			    <li class="page-item"><a th:href="@{/businessTable/indexPaginate(page=${data.number + 1})}" class="page-link">Back</a></li>
 			  </ul>
 			</nav>
-
+				
+<div th:replace = "fragments/footer :: Footer" ></div>
+		<style>
+footer {
+  text-align: center;
+  padding: 3px;
+  background-color: lightgreen;
+  color: black;
+}
+</style>
 		
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	</body>
 	
 </html>

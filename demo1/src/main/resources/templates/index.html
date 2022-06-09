@@ -52,22 +52,6 @@
           </select>
           
           
-          <select
-            id="selection"
-            class="search-bar"
-            type="text"
-            placeholder="Enter your delivery location"
-            name = "stars"
-          >
-            <option value="0">Stars</option>
-			<option th:value="1">1</option>
-    		<option th:value="2">2</option>
-    		<option th:value="3">3</option>
-    		<option th:value="4">4</option>
-    		<option th:value="5">5</option>
-          </select>
-          
-          
           <button
               id="search-button"
               class="search-bar search-submit"
@@ -76,9 +60,34 @@
             >
               Search
             </button>
+    
 
         </div>
         </form>
+            
+            <form action="/toCharts" method="GET">
+            <button
+              id="search-button"
+              class="search-bar search-submit"
+              type="submit"
+              value = "submit"
+            >
+              Charts
+            </button>
+            </form>
+            
+            <form action="/businessTable" method="POST">
+            <button
+              id="search-button"
+              class="search-bar search-submit"
+              type="submit"
+              value = "submit"
+            >
+              Business Table
+            </button>
+            </form>
+            
+            
         <div class=" cities ">
           <div class="cities-title">CITIES SERVED IN THE US</div>
           <div class="cities-sub-title">

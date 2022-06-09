@@ -1,12 +1,13 @@
 package com.example.demo1.Service;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,6 @@ public class BusinessService {
 		}
 		return businessList;
 	}
-	
 	
 	public List<Location> coolLocations(String businessId) {
 		List<Business> list = businessRepository.findByBusinessId(businessId);
@@ -111,7 +111,7 @@ public class BusinessService {
 		return uniqueCitiesList;
 	}
 	
-	public List<Business> filterBusiness(String name, String city, String state, Double stars){
+	public List<Business> filterBusiness(String name, String city, String state){
 		
 		BusinessSpecificationsBuilder builder = new BusinessSpecificationsBuilder();
 						
@@ -120,7 +120,6 @@ public class BusinessService {
 			BusinessSpecifications spec1 = new BusinessSpecifications(searchCriteria);
 			builder.with(spec1);
 		}
-		
 		if(state != null && !state.isBlank()) {
 			SearchCriteria searchCriteria = new SearchCriteria( "state", state );	
 			BusinessSpecifications spec2 = new BusinessSpecifications(searchCriteria);
@@ -131,14 +130,8 @@ public class BusinessService {
 			BusinessSpecifications spec3 = new BusinessSpecifications(searchCriteria);
 			builder.with(spec3);
 		}
-		/*if(stars != null && !stars.isBlank()) {
-			
-		}*/
-		
 		Specification<Business> specs = builder.build();
 		List<Business> businesses = businessRepository.findAll(specs);
-
-		
 		return businesses;
 		
 	}
@@ -146,9 +139,92 @@ public class BusinessService {
 	public Page<Business> searchAll(Pageable page) {
 		return  businessRepository.findAll(page);
 	}
+	
+	
+	public List<Business> acceptCreditCard(){
+		List<Business> businesses = businessRepository.findAll();
+		List<Business> businessWithCard = new ArrayList<Business>();
+		
+		for(Business business : businesses) {
+			if(business.attributes.contains("'BusinessAcceptsCreditCards': 'True'")) {
+				businessWithCard.add(business);
+			}
+		}
+		return businessWithCard;
+	}
+	
+	public List<Business> acceptNoCreditCard(){
+		List<Business> businesses = businessRepository.findAll();
+		List<Business> businessWithNoCard = new ArrayList<Business>();
+
+		for(Business business : businesses) {
+		if(business.attributes.contains("'BusinessAcceptsCreditCards': 'False'")) {
+			businessWithNoCard.add(business);
+		}
+		}
+		return businessWithNoCard;
+	}
+	
+	public List<Business> hasAttribute(List<String> attribute){
+		List<Business> businesses = businessRepository.findAll();
+		List<Business> sortedBusiness = new ArrayList<Business>();
+
+		for(Business business : businesses) {
+		if(attribute.stream().anyMatch(business.categories::contains)) {
+			sortedBusiness.add(business);
+		}
+		}
+		return sortedBusiness;
+	}
+	
+	
+	public List<Business> originLand(String land){
+		List<Business> businesses = businessRepository.findAll();
+		List<Business> originLand = new ArrayList<Business>();
+
+		for(Business business : businesses) {
+		if(business.categories.contains(land)) {
+			originLand.add(business);
+		}
+		}
+		return originLand;
+	}
+	
+	
+	public List<Business> isVegetarian(){
+		List<Business> businesses = businessRepository.findAll();
+		List<Business> isVegetarian = new ArrayList<Business>();
+
+		for(Business business : businesses) {
+		if(business.categories.contains("Vegetarian") ) {
+			isVegetarian.add(business);
+		}
+		}
+		return isVegetarian;
+	}
+	
+	public List<Business> isVegan(){
+		List<Business> businesses = businessRepository.findAll();
+		List<Business> isVegan = new ArrayList<Business>();
+
+		for(Business business : businesses) {
+		if(business.categories.contains("Vegan")) {
+			isVegan.add(business);
+		}
+		}
+		return isVegan;
+	}
+	
+	public List<String> cityCalculator(){
+		return businessRepository.findTopCities();
+	}
+	
+	public List<String> stateCalculator(){
+		return businessRepository.findTopStates();
+		}
+	
+	public Map<String, Integer> topReviewedBusinesses(){
+		return businessRepository.findTopReview();
+	}
 		
 	}
-
-
-
-

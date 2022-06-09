@@ -1,17 +1,17 @@
 package com.example.demo1.Repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo1.Model.Business;
 
 @Repository
-public interface BusinessRepository extends JpaRepository<Business, Long>, JpaSpecificationExecutor<Business>{
+public interface BusinessRepository extends JpaSpecificationExecutor<Business>, JpaRepository<Business, Long>{
 
 	List<Business> findByName(String name);
 	List<Business> findByCity(String city);
@@ -20,4 +20,13 @@ public interface BusinessRepository extends JpaRepository<Business, Long>, JpaSp
 	List<Business> findByStars(double stars);
 	List<Business> findByBusinessId(String businessId);
 	Business findOneByBusinessId(String businessId);
+	
+	@Query(value="SELECT city FROM business GROUP BY city ORDER BY COUNT(city) DESC limit 10", nativeQuery = true)
+	List<String> findTopCities();
+	
+	@Query(value="SELECT state FROM business GROUP BY state ORDER BY COUNT(state) DESC limit 10", nativeQuery = true)
+	List<String> findTopStates();
+	
+	@Query(value="SELECT name, review_count FROM business ORDER BY review_count DESC limit 10", nativeQuery = true)
+	Map<String, Integer> findTopReview();
 }

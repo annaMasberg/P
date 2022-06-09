@@ -1,16 +1,15 @@
 package com.example.demo1.Controller;
 
-import java.awt.print.Pageable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +21,7 @@ import com.example.demo1.Repository.TipRepository;
 import com.example.demo1.Service.BusinessService;
 
 @Controller
+//@RequestMapping(value="/businessTable")
 public class BusinessController {
 
 	@Autowired
@@ -65,11 +65,45 @@ public class BusinessController {
 	
 	
 	@RequestMapping(value = "searchForFilteredBusiness", method = RequestMethod.POST)
-	public String searchForFilteredBusinesses(Model model, @RequestParam String name, @RequestParam String city, @RequestParam String state, @RequestParam Double stars) {
-		List<Business> data = businessService.filterBusiness(name, city, state, stars);
+	public String searchForFilteredBusinesses(Model model, @RequestParam String name, @RequestParam String city, @RequestParam String state) {
+		List<Business> data = businessService.filterBusiness(name, city, state);
 				model.addAttribute("data", data);
 		return "BusinessTable";	
 	}
+	
+	@RequestMapping(value = "creditCardViability", method = RequestMethod.POST)
+	public String creditCardViability(Model model, @RequestParam String viability) {
+		switch(viability){
+			case "yes" : model.addAttribute("data", businessService.acceptCreditCard()); break;
+			case "no" : model.addAttribute("data", businessService.acceptNoCreditCard()); break;
+			default: break;
+		}
+		return "BusinessTable";	
+	}
+	
+	@RequestMapping(value = "hasAttribute", method = RequestMethod.POST)
+	public String hasAttribute(Model model, @RequestParam List<String> attribute) {
+		model.addAttribute("data", businessService.hasAttribute(attribute));
+		return "BusinessTable";	
+	}
+	
+	
+	@RequestMapping(value = "foodOrigin", method = RequestMethod.POST)
+	public String originLand(Model model, @RequestParam String type) {
+			model.addAttribute("data", businessService.originLand(type));
+		return "BusinessTable";	
+	}
+	
+	@RequestMapping(value = "hasCategorie", method = RequestMethod.POST)
+	public String isVegetarian(Model model, @RequestParam String categorie) {
+		switch(categorie){
+		case "Vegetarian" : model.addAttribute("data", businessService.isVegetarian()); break;
+		case "Vegan" : model.addAttribute("data", businessService.isVegan()); break;
+		default: break;
+	}
+		return "BusinessTable";	
+	}
+	
 	
 	@GetMapping(value = "/indexPaginate")
 	public String showIndexPaginate(Model model, Pageable page) {
@@ -78,6 +112,10 @@ public class BusinessController {
 		return "businessTable";
 	}
 	
+	@GetMapping(value = "/toCharts")
+	public String toCHarts() {
+		return "Charts";
+				}
 	
 	
 	
