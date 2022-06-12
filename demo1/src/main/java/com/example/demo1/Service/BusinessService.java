@@ -191,6 +191,30 @@ public class BusinessService {
 	}
 	
 	
+	public List<Business> foodType(String type){
+		List<Business> businesses = businessRepository.findAll();
+		List<Business> foodType = new ArrayList<Business>();
+
+		for(Business business : businesses) {
+		if(business.categories.contains(type)) {
+			foodType.add(business);
+		}
+		}
+		return foodType;
+	}
+	
+	public List<Business> drinkType(String type){
+		List<Business> businesses = businessRepository.findAll();
+		List<Business> drinkType = new ArrayList<Business>();
+
+		for(Business business : businesses) {
+		if(business.categories.contains(type)) {
+			drinkType.add(business);
+		}
+		}
+		return drinkType;
+	}
+	
 	public List<Business> isVegetarian(){
 		List<Business> businesses = businessRepository.findAll();
 		List<Business> isVegetarian = new ArrayList<Business>();

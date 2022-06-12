@@ -89,8 +89,20 @@ public class BusinessController {
 	
 	
 	@RequestMapping(value = "foodOrigin", method = RequestMethod.POST)
-	public String originLand(Model model, @RequestParam String type) {
+	public String originLandfinder(Model model, @RequestParam String type) {
 			model.addAttribute("data", businessService.originLand(type));
+		return "BusinessTable";	
+	}
+	
+	@RequestMapping(value = "foodType", method = RequestMethod.POST)
+	public String foodTypefinder(Model model, @RequestParam String type) {
+			model.addAttribute("data", businessService.foodType(type));
+		return "BusinessTable";	
+	}
+	
+	@RequestMapping(value = "drinkType", method = RequestMethod.POST)
+	public String drinkTypefinder(Model model, @RequestParam String type) {
+			model.addAttribute("data", businessService.drinkType(type));
 		return "BusinessTable";	
 	}
 	

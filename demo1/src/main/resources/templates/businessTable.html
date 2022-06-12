@@ -73,6 +73,9 @@
                 	<label>
 					 <input type="checkbox" class="ads_Checkbox" name="attribute" value="Hotels"/> Hotels
 	                </label>
+	                <label>
+					 <input type="checkbox" class="ads_Checkbox" name="attribute" value="Buffets"/> Buffets
+	                </label>
 					<button type="submit" class="like">Submit</button>
 				</form>
 
@@ -100,8 +103,8 @@
   						<option th:value="Thai" th:text="Thai">Thai</option>
   						<option th:value="Pakistani" th:text="Pakistani">Pakistani</option>
   						<option th:value="Idian" th:text="Indian">Indian</option>
-  						<!-- <option th:value="Middle Eastern" th:text="Middle Eastern">Middle Eastern</option>
-  						<option th:value="Puerto Rican" th:text="Puerto Rican">Puerto Rican</option> -->
+  						<option th:value="'Middle Eastern'" th:text="'Middle Eastern'">Middle Eastern</option>
+  						<option th:value="'Puerto Rican'" th:text="'Puerto Rican'">Puerto Rican</option> -->
   						<option th:value="Honduran" th:text="Honduran">Honduran</option>
   						<option th:value="Spanish" th:text="Spanish">Spanish</option>
   						<option th:value="Greek" th:text="Greek">Greek</option>
@@ -109,6 +112,53 @@
   						<option th:value="Turkish" th:text="Turkish">Turkish</option>
   						<option th:value="Lebanese" th:text="Lebanese">Lebanese</option>
   						<option th:value="Greek" th:text="Greek">Greek</option>
+					</select>
+  					 <input type="submit" value="Submit">
+				</form>
+				
+				<form action="/foodType" method="POST">
+					<select name="type" th:id="${type}" th:value="${type}">
+  						<option th:value="Seafood" th:text="Seafood">Seafood</option>
+  						<option th:value="Burgers" th:text="Burgers">Burger</option>
+  						<option th:value="Pizza" th:text="Pizza">Pizza</option>
+  						<option th:value="'Ice Cream'" th:text="'Ice Cream'">Ice Cream</option>
+  						<option th:value="'Hot Dogs'" th:text="'Hot Dogs'">Hot Dogs</option>
+  			  			<option th:value="'Chicken Wings'" th:text="'Chicken Wings'">Chicken Wings</option>
+  						<option th:value="'Frozen Yogurt'" th:text="'Frozen Yogurt'">Frozen Yogurt</option>
+  						<option th:value="Sushi" th:text="Sushi">Sushi</option>
+  						<option th:value="Bakeries" th:text="Bakeries">Bakeries</option>
+  						<option th:value="Soup" th:text="Soup">Soup</option>
+  						<option th:value="Cupcakes" th:text="Cupcakes">Cupcakes</option>
+  						<option th:value="Steakhouses" th:text="Steakhouses">Steak</option>
+  						<option th:value="Sandwiches" th:text="Sandwiches">Caribbean</option>
+  						<option th:value="Bagels" th:text="Bagels">Bagels</option>
+  						<option th:value="Donuts" th:text="Donuts">Donuts</option>
+  						<option th:value="Kebab" th:text="Kebab">Kebab</option>
+  						<option th:value="Desserts" th:text="Desserts">Desserts</option>
+  						<option th:value="Barbeque" th:text="Barbeque">Barbeque</option>
+  						<option th:value="Salad" th:text="Salad">Salad</option>
+  						<option th:value="Pasta" th:text="Pasta">Pasta</option>
+  						<option th:value="Bowls" th:text="Bowls">Bowls</option>
+  						<option th:value="Tacos" th:text="Tacos">Tacos</option>
+  						<option th:value="Pretzels" th:text="Pretzels">Pretzels</option>
+  						<option th:value="Donuts" th:text="Donuts">Donuts</option>
+  						<option th:value="Ramen" th:text="Ramen">Ramen</option>
+
+					</select>
+  					 <input type="submit" value="Submit">
+				</form>
+				
+				<form action="/drinkType" method="POST">
+					<select name="type" th:id="${type}" th:value="${type}">
+  						<option th:value="Tea" th:text="Tea">Tea</option>
+  						<option th:value="Coffee" th:text="Coffee">Coffee</option>
+  						<option th:value="Cocktail" th:text="Cocktail">Cocktail</option>
+  						<option th:value="Wine" th:text="Wine">Wine</option>
+  						<option th:value="Smoothies" th:text="Smoothies">Smoothies</option>
+  						<option th:value="Beer" th:text="Beer">Beer</option>
+  						<option th:value="Spirits" th:text="Spirits">Spirits</option>
+  						<option th:value="Juice" th:text="Juice">Juice</option>
+  						<option th:value="'Bubble Tea'" th:text="'Bubble Tea'">Bubble Tea</option>
 					</select>
   					 <input type="submit" value="Submit">
 				</form>
@@ -172,12 +222,12 @@
 				
 			</table>
 			
-			<nav th:if="${data.totalPages > 0}" aria-label="Page navigation example" >
+		<!--	<nav th:if="${data.totalPages > 0}" aria-label="Page navigation example" >
 			  <ul class="pagination">         
 			    <li class="page-item"><a th:href="@{/businessTable/indexPaginate(page=${data.number - 1})}" class="page-link">Next</a></li>			    
 			    <li class="page-item"><a th:href="@{/businessTable/indexPaginate(page=${data.number + 1})}" class="page-link">Back</a></li>
 			  </ul>
-			</nav>
+			</nav>-->
 				
 <div th:replace = "fragments/footer :: Footer" ></div>
 		<style>
