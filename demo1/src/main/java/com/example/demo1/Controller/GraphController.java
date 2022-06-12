@@ -46,13 +46,13 @@ public class GraphController {
 	}
 	
 	@RequestMapping(value = "majorCitiesOrStatebarChart", method = RequestMethod.POST)
-	public String majorCitiesOrStatebarChart(Model model, @RequestParam String loco) {
-		String title = "Top 10 " + loco + " with the highest Business Count";
-		String xAxeText = loco;
+	public String majorCitiesOrStatebarChart(Model model, @RequestParam String word) {
+		String title = "Top 10 " + word + " with the highest Business Count";
+		String xAxeText = word;
 		String yAxeText = "Number of Businesses";
 		Map<String, Integer> data = new LinkedHashMap<String, Integer>();
 		List<String> list;
-		switch(loco){
+		switch(word){
 			case "city" : 
 						list = businessService.cityCalculator();
 						for(String city : list) {
@@ -90,12 +90,15 @@ public class GraphController {
 	
 	@RequestMapping(value = "topReviewsCount", method = RequestMethod.POST)
 	public String topReviewsCount(Model model) {
+		Map<String, Integer> data = new LinkedHashMap<String, Integer>();
 		String title = "Top 10 most reviewed Businesses";
 		String xAxeText = "Business";
 		String yAxeText = "Number of Reviews";
-		
-		Map<String, Integer> data = businessService.topReviewedBusinesses();
-		
+				
+		List<String> list = businessService.topReviewedBusinesses();
+		for(String businessName : list) {
+				data.put(businessName, businessRepository.findOneByName(businessName).reviewCount);
+								}
 		model.addAttribute("keySet", data.keySet());
 		model.addAttribute("values", data.values());
 		model.addAttribute("xAxeText", xAxeText);

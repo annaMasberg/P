@@ -1,7 +1,6 @@
 package com.example.demo1.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -19,6 +18,7 @@ public interface BusinessRepository extends JpaSpecificationExecutor<Business>, 
 	List<Business> findByPostalCode(int postalCode);
 	List<Business> findByStars(double stars);
 	List<Business> findByBusinessId(String businessId);
+	Business findOneByName(String name);
 	Business findOneByBusinessId(String businessId);
 	
 	@Query(value="SELECT city FROM business GROUP BY city ORDER BY COUNT(city) DESC limit 10", nativeQuery = true)
@@ -27,6 +27,6 @@ public interface BusinessRepository extends JpaSpecificationExecutor<Business>, 
 	@Query(value="SELECT state FROM business GROUP BY state ORDER BY COUNT(state) DESC limit 10", nativeQuery = true)
 	List<String> findTopStates();
 	
-	@Query(value="SELECT name, review_count FROM business ORDER BY review_count DESC limit 10", nativeQuery = true)
-	Map<String, Integer> findTopReview();
+	@Query(value="SELECT name FROM business ORDER BY review_count DESC limit 10", nativeQuery = true)
+	List<String> findTopReview();
 }

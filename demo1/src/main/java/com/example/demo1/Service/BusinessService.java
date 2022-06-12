@@ -223,7 +223,7 @@ public class BusinessService {
 		return businessRepository.findTopStates();
 		}
 	
-	public Map<String, Integer> topReviewedBusinesses(){
+	public List<String> topReviewedBusinesses(){
 		return businessRepository.findTopReview();
 	}
 		
