@@ -162,6 +162,27 @@
 					</select>
   					 <input type="submit" value="Submit">
 				</form>
+				
+				
+		<select
+            id="selection"
+            class="search-bar"
+            type="text"
+            name="city"
+          >
+            <option value="0">City</option>
+			<option th:each="selected_city : ${cities}" th:value="${selected_city}" th:text="${selected_city} ">city</option>
+          </select>
+          
+          
+          <button
+              id="search-button"
+              class="search-bar search-submit"
+              type="submit"
+              value = "submit"
+            >
+              Search
+            </button>
 
 			<a th:href="@{/businessTable}">Business</a><br/>
 			<table class="table table-bordered">
@@ -185,6 +206,7 @@
 						<th>City</th>
 						<th>State</th>
 						<th>Postal code</th>
+						<th>Price Range</th>
 						<th>Stars</th>
 						<th>Review count</th>
 						<th>Open</th>
@@ -202,6 +224,7 @@
 						<td th:text="${business.city}" />
 						<td th:text="${business.state}" />
 						<td th:text="${business.postalCode}" />
+						<td th:text="${business.priceRange}" />
 						<td th:text="${business.stars}" />
 						<td th:text="${business.reviewCount}" />
 						<td th:text="${business.isOpen} ? 'yes' : 'no' " />

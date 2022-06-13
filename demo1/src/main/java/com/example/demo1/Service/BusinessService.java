@@ -239,6 +239,21 @@ public class BusinessService {
 		return isVegan;
 	}
 	
+	
+	public String priceRangefinder(Business business) {
+
+		if(business.attributes.contains("'RestaurantsPriceRange2': '1'") ) {
+			return "$";
+		}
+		else if(business.attributes.contains("'RestaurantsPriceRange2': '2'") ) {
+			return "$$";
+		}
+		else if(business.attributes.contains("'RestaurantsPriceRange2': '3'") ) {
+			return "$$$";
+		}
+		else return "";
+	}
+	
 	public List<String> cityCalculator(){
 		return businessRepository.findTopCities();
 	}
@@ -249,6 +264,33 @@ public class BusinessService {
 	
 	public List<String> topReviewedBusinesses(){
 		return businessRepository.findTopReview();
+		
 	}
 		
+	
+	public List<Business> cityBusiness(String city){
+		List<Business> cities = businessRepository.findByCity(city);
+		return cities;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}

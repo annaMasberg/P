@@ -44,8 +44,13 @@ public class BusinessController {
 	
 	@RequestMapping("/businessTable")
 	public Model showData(Model model) {
-		List<Business> list = businessRepository.findAll();				
+		List<Business> list = businessRepository.findAll();
+	    List<String> cities = businessService.findDistinctCities();
+		for(Business business : list) {
+			business.setPriceRange(businessService.priceRangefinder(business));
+		}
 		model.addAttribute("data", list);
+	    model.addAttribute("cities", cities);
 		return model;
 	}
 	
@@ -128,7 +133,5 @@ public class BusinessController {
 	public String toCHarts() {
 		return "Charts";
 				}
-	
-	
 	
 }

@@ -3,9 +3,11 @@ package com.example.demo1.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.example.demo1.Service.BusinessService;
+
 @Entity
 public class Business {
-	
+		
 	public Business() {
 	}
 	
@@ -37,6 +39,18 @@ public class Business {
 	public String categories;
 	
 	public String hours;
+	
+	public String priceRange;
+
+	
+	
+	public String getPriceRange() {
+		return priceRange;
+	}
+
+	public void setPriceRange(String priceRange) {
+		this.priceRange = priceRange;
+	}
 
 	public String getBusinessId() {
 		return businessId;
