@@ -1,10 +1,23 @@
-<nav th:fragment="Hauptmenu">
+<nav th:fragment= "Hauptmenu">
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
+/* Header/logo Title */
+.header {
+  padding: 80px;
+  text-align: center;
+  background: #198754;
+  color: white;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+  font-size: 40px;
+}
+
 body {
 	margin: 0;
 	font-family: Arial, Helvetica, sans-serif;
@@ -33,16 +46,100 @@ body {
 	background-color: #FF0000;
 	color: black;
 }
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #444;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #198754;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+/*Menu*/
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #198754;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
 </style>
 </head>
 <body>
-<div class="topnav">
-		<a th:href="@{/businessTable/indexPaginate}">Business</a>
+<div class="header">
+  <h1>Group F</h1>
+  <p>A <b>responsive</b> website created to show analyticals Information about different restaurants.</p>
+</div>
+
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  		<a th:href="@{/businessTable}">Business</a>
 		<a th:href="@{/barChart}">Bar-Chart</a>
 		<a th:href="@{/pieChart}">Pie-Chart</a>
 		<a th:href="@{/tipTable}">Tips</a>
 </div>
 
+<div id="main">
+  <button class="openbtn" onclick="openNav()">☰ Menu</button>  
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+   
 </body>
-</html>
+</html> 
 </nav>

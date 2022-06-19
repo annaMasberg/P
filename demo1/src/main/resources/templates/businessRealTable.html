@@ -41,7 +41,7 @@
 </head>
 
 <header th:insert="fragments/menu :: Hauptmenu"></header>
-<form action="/filterBusiness" method="POST">
+<form action="/filterBusinessInTable" method="POST">
 	<input type="text" id="name" name="name" th:value="${name}" placeholder="Name">
 	<input type="text" id="name" name="state" th:value="${state}" placeholder="state">
 	<input type="text" id="name" name="city" th:value="${city}" placeholder="city">
@@ -200,103 +200,53 @@
 	<input type="submit" class="btn btn-primary" value="Submit">
 </form>
 
-<p th:each="business: ${data}">
-	<span STYLE="font-size:18.0pt" th:text="${business.name}"> </span>
-	<span th:text="${business.stars}" class="fa fa-star checked"> </span>
-	<span th:text="|(${business.reviewCount})|"> </span>
-	<span th:text="| · ${business.attributesRestaurantspricerange}|"> </span>
-	<span th:text="${business.attributesAgesallowed}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.isOpen} ? 'OPEN' : 'CLOSED' " th:style="${business.isOpen ? 'color:green' : 'color:red'}">
-	</span>
-	<br>
-	<span th:text="|${business.address}, ${business.city}|"> </span>
-	<br>
-	<span th:text="|${business.state}, ${business.postalCode}|"> </span>
-	<br>
-	<span th:text="${business.categories}"> </span>
-	<br>
-	<span th:text="${business.attributesBestnights}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesBusinessparking}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesDietaryrestrictions}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesGoodformeal}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesHairspecializesin}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesMusic}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesAmbience}" style="color : green"> </span>
-	<span th:text="${business.attributesHappyhour} ? 'Happy hour ·' : ''"
-		th:style="${business.attributesHappyhour ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesOutdoorseating} ? 'Outdoor Seating ·' : ''"
-		th:style="${business.attributesOutdoorseating ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesBikeparking} ? 'Bike Parking ·' : ''"
-		th:style="${business.attributesBikeparking ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesDrivethru} ? 'Has Drive-Thru ·' : ''"
-		th:style="${business.attributesDrivethru ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesGoodforkids} ? 'Good for Kids ·' : ''"
-		th:style="${business.attributesGoodforkids ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantsdelivery} ? 'Delivery ·' : ''"
-		th:style="${business.attributesRestaurantsdelivery ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantsreservations} ? 'Reservation ·' : ''"
-		th:style="${business.attributesRestaurantsreservations ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantstakeout} ? 'Takeout ·' : ''"
-		th:style="${business.attributesRestaurantstakeout ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantstableservice} ? 'Table Service ·' : ''"
-		th:style="${business.attributesRestaurantstableservice ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesWheelchairaccessible} ? 'Wheelchair Accessible ·' : ''"
-		th:style="${business.attributesWheelchairaccessible ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantsgoodforgroups} ? 'Good for Groups ·' : ''"
-		th:style="${business.attributesRestaurantsgoodforgroups ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantscounterservice} ? 'Counter Service ·' : ''"
-		th:style="${business.attributesRestaurantscounterservice ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesHastv} ? 'TV ·' : ''"
-		th:style="${business.attributesHastv ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesGoodfordancing} ? 'Good for Dancing ·' : ''"
-		th:style="${business.attributesGoodfordancing ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesDogsallowed} ? 'Dogs allowed ·' : ''"
-		th:style="${business.attributesDogsallowed ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesCorkage} ? 'Corkage Fee ·' : ''"
-		th:style="${business.attributesCorkage ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesCoatcheck} ? 'Coat Check ·' : ''"
-		th:style="${business.attributesCoatcheck ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesCaters} ? 'Caters ·' : ''"
-		th:style="${business.attributesCaters ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesByappointmentonly} ? 'By Appointment Only ·' : ''"
-		th:style="${business.attributesByappointmentonly ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesBusinessacceptscreditcards} ? 'Takes Credit Card ·' : ''"
-		th:style="${business.attributesBusinessacceptscreditcards ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesBusinessacceptsbitcoin} ? 'Takes BitCoin ·' : ''"
-		th:style="${business.attributesBusinessacceptsbitcoin ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesByob} ? 'BYOB ·' : ''"
-		th:style="${business.attributesByob ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesAcceptsinsurance} ? 'Accepts Insurance ·' : ''"
-		th:style="${business.attributesAcceptsinsurance ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesOpen24hours} ? '24H ·' : ''"
-		th:style="${business.attributesOpen24hours ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesHappyhour} ? 'Happy hour ·' : ''"
-		th:style="${business.attributesHappyhour ? 'color:orange' : 'color:red'}"> </span>
-	<span th:text="|${business.attributesAlcohol} ·|" style="color : green"> </span>
-	<span th:text="|${business.attributesByobcorkage} ·|" style="color : green"> </span>
-	<span th:text="|${business.attributesRestaurantsattire} ·|" style="color : green"> </span>
-	<span th:text="|${business.attributesSmoking} ·|" style="color : green"> </span>
-	<span th:text="|${business.attributesWifi} ·|" style="color : green"> </span>
-
-	<span th:text="|Noise Level: ${business.attributesNoiselevel} ·|" style="color : green"> </span>
+<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Address</th>
+						<th>Price Range</th>
+						<th>Stars</th>
+						<th>Review count</th>
+						<th>Open</th>
+						<th>Categories</th>
+						<th>Tips</th>
+						<th>Map</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="business: ${data}">
+						<td th:text="${business.name}" />
+						<td th:text="|${business.address}, ${business.city}, ${business.state}, ${business.postalCode}|"/>
+						<td th:text="${business.attributesRestaurantspricerange}" />
+						<td class="fa fa-star checked" th:text="${business.stars}" />
+						<td th:text="${business.reviewCount}"/> 
+						<td th:text="${business.isOpen} ? 'yes' : 'no' " />
+						<td th:text="${business.categories}" />
+						<form action="/toBusinessTips" method="POST">
+						<td> <input type="submit" value="Tips" /> <td/>
+						<input type="hidden" name="businessId" th:value="${business.businessId}"/>
+						</form>
+						<form action="/toMap" method="POST">
+						<td> <input type="submit" value="see in Map" /> <td/>
+						<input type="hidden" name="businessId" th:value="${business.businessId}"/>
+						</form>
+						
+					</tr>
+				</tbody>
+				
+			</table>
 
 
 </p>
 
 <nav aria-label="Page navigation">
 	<ul class="pagination">
-		<li th:if="${currentPage != 0}" class="page-item"><a th:href="@{'/businessTable/'+${currentPage - 1}}"
+		<li th:if="${currentPage != 0}" class="page-item"><a th:href="@{'/businessRealTable/'+${currentPage - 1}}"
 				class="page-link" href="#">Previous</a></li>
 		<!-- <li th:classappend="${currentpage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"><a th:href="@{'/businessTable/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li> -->
 		<li th:if="${currentPage+1 != totalPages}" class="page-item"><a
-				th:href="@{'/businessTable/'+${currentPage + 1}}" class="page-link" href="#">Next</a></li>
+				th:href="@{'/businessRealTable/'+${currentPage + 1}}" class="page-link" href="#">Next</a></li>
 	</ul>
 </nav>
 

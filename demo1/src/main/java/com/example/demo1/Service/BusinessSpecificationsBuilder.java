@@ -16,8 +16,8 @@ public class BusinessSpecificationsBuilder {
 		params = new ArrayList<SearchCriteria>();
 	}
 	
-	public BusinessSpecificationsBuilder with(String key, Object value) {
-		params.add(new SearchCriteria(key, value));
+	public BusinessSpecificationsBuilder with(String key, Object value, String operation) {
+		params.add(new SearchCriteria(key, value, operation));
 		return this;
 	}
 	

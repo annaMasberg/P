@@ -43,7 +43,7 @@ public class MapController {
 	 }
 	 
 	 
-	@RequestMapping(value = "filterBusiness", method = RequestMethod.POST)
+	/*@RequestMapping(value = "filterBusiness", method = RequestMethod.POST)
 	public String filterBusiness(Model model, @RequestParam String text, @RequestParam String type) {
 		   model.addAttribute("apikey", tomTomApiKey);
 		   List<Location> locations = businessService.filteredLocations(text, type);
@@ -51,6 +51,6 @@ public class MapController {
 		return "filteredMap";	
 		}
 	 
-	 
+	 */
 	 
 }

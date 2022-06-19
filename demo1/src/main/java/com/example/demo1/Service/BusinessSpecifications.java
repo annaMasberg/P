@@ -23,9 +23,11 @@ public class BusinessSpecifications implements Specification<Business>{
 	@Override
 	public Predicate toPredicate(Root<Business> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		List<Predicate> predicates = new ArrayList<>();
-		
-		predicates.add(criteriaBuilder.equal(root.get(criteria.getKey()), criteria.getValue().toString()));
-		
+		if(criteria.getOperation().equals("=")) {
+			predicates.add(criteriaBuilder.equal(root.get(criteria.getKey()), criteria.getValue()));
+		} else {
+			predicates.add(criteriaBuilder.like(root.get(criteria.getKey()), "%"+criteria.getValue().toString()+"%"));
+		}
 		return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 	}
 

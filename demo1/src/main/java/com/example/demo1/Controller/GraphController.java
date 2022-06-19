@@ -1,18 +1,15 @@
 package com.example.demo1.Controller;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo1.Model.Business;
 import com.example.demo1.Repository.BusinessRepository;
 import com.example.demo1.Service.BusinessService;
 
@@ -24,119 +21,74 @@ public class GraphController {
 
 	@Autowired
 	BusinessService businessService;
-
-	@GetMapping("/barChart")
-	public String creditCardbarChart(Model model) {
-		String title = "Businesses who accept Credit Cart Payment vs who dont";
-		String xAxeText = "Businesses";
-		String yAxeText = "Number of Businesses";
-		Map<String, Integer> data = new LinkedHashMap<String, Integer>();
-		List<Business> listCreditCard = businessService.acceptCreditCard();
-		List<Business> listNoCreditCard = businessService.acceptNoCreditCard();
-
-		data.put("Credit Card", listCreditCard.size());
-		data.put("No Credit Card", listNoCreditCard.size());
-
-		model.addAttribute("keySet", data.keySet());
-		model.addAttribute("values", data.values());
-		model.addAttribute("xAxeText", xAxeText);
-		model.addAttribute("yAxeText", yAxeText);
-		model.addAttribute("title", title);
-		return "barChart";
-	}
 	
-	@RequestMapping(value = "majorCitiesOrStatebarChart", method = RequestMethod.POST)
-	public String majorCitiesOrStatebarChart(Model model, @RequestParam String word) {
-		String title = "Top 10 " + word + " with the highest Business Count";
-		String xAxeText = word;
-		String yAxeText = "Number of Businesses";
-		Map<String, Integer> data = new LinkedHashMap<String, Integer>();
-		List<String> list;
-		switch(word){
-			case "city" : 
-						list = businessService.cityCalculator();
-						for(String city : list) {
-							int counter = 0;
-							for(Business business : businessRepository.findAll()) {
-								if(city.equals(business.city)) {
-									counter++;
-										}
-												}
-								data.put(city, counter);
-												}
-			break;
-			case "state" : list = businessService.stateCalculator();
-						   for(String state : list) {
-							  int counter = 0;
-							  for(Business business : businessRepository.findAll()) {
-								  if(state.equals(business.state)) {
-									  counter++;
-								  	}
-									}
-							  	data.put(state, counter);
-									}
-			break;
-				
-		}
-
-		model.addAttribute("keySet", data.keySet());
-		model.addAttribute("values", data.values());
-		model.addAttribute("xAxeText", xAxeText);
-		model.addAttribute("yAxeText", yAxeText);
-		model.addAttribute("title", title);
-
-		return "barChart";
-	}
 	
-	@RequestMapping(value = "topReviewsCount", method = RequestMethod.POST)
-	public String topReviewsCount(Model model) {
-		Map<String, Integer> data = new LinkedHashMap<String, Integer>();
-		String title = "Top 10 most reviewed Businesses";
-		String xAxeText = "Business";
-		String yAxeText = "Number of Reviews";
-				
-		List<String> list = businessService.topReviewedBusinesses();
-		for(String businessName : list) {
-				data.put(businessName, businessRepository.findOneByName(businessName).reviewCount);
+	@RequestMapping(value = "Graphs", method = RequestMethod.POST)
+	    public String topReviewsCount(Model model) {
+	        Map<String, Integer> graphDataForReviews = new TreeMap<>();
+	        
+	        List<String> names = businessService.topReviewedBusinessesName();
+	        List<Integer> count = businessService.topReviewedBusinesses();
+	        
+	        for(int i = 0; i <10 ; i++) {
+	        	graphDataForReviews.put(names.get(i), count.get(i));
 								}
-		model.addAttribute("keySet", data.keySet());
-		model.addAttribute("values", data.values());
-		model.addAttribute("xAxeText", xAxeText);
-		model.addAttribute("yAxeText", yAxeText);
-		model.addAttribute("title", title);
-
-		return "barChart";
-	}
-	
-	
-
-	@GetMapping("/pieChart")
-	public String pieChart(Model model) {
-		
-			model.addAttribute("American", businessService.originLand("American").size()*100/businessRepository.count());
-			model.addAttribute("Italian", businessService.originLand("Italian").size()*100/businessRepository.count());
-			model.addAttribute("Vietnamese", businessService.originLand("Vitnamese").size()*100/businessRepository.count());
-			model.addAttribute("Korean", businessService.originLand("Korean").size()*100/businessRepository.count());
-			model.addAttribute("Chinese", businessService.originLand("Chinese").size()*100/businessRepository.count());
-			model.addAttribute("Japanese", businessService.originLand("Japanese").size()*100/businessRepository.count());
-			model.addAttribute("Moroccan", businessService.originLand("Moroccan").size()*100/businessRepository.count());
-			model.addAttribute("Mexican", businessService.originLand("Mexican").size()*100/businessRepository.count());
-			model.addAttribute("French", businessService.originLand("French").size()*100/businessRepository.count());
-			model.addAttribute("Filipino", businessService.originLand("Filipino").size()*100/businessRepository.count());
-			model.addAttribute("Irish", businessService.originLand("Irish").size()*100/businessRepository.count());
-			model.addAttribute("Caribbean", businessService.originLand("Caribbean").size()*100/businessRepository.count());
-			model.addAttribute("Thai", businessService.originLand("Thai").size()*100/businessRepository.count());
-			model.addAttribute("Pakistani", businessService.originLand("Pakistani").size()*100/businessRepository.count());
-			model.addAttribute("Indian", businessService.originLand("Indian").size()*100/businessRepository.count());
-			model.addAttribute("Middle Eastern", businessService.originLand("Middle Eastern").size()*100/businessRepository.count());
-			model.addAttribute("Puerto Rican", businessService.originLand("Puerto Rican").size()*100/businessRepository.count());
-			model.addAttribute("Spanish", businessService.originLand("Spanish").size()*100/businessRepository.count());
-			model.addAttribute("Greek", businessService.originLand("Greek").size()*100/businessRepository.count());
-			model.addAttribute("African", businessService.originLand("African").size()*100/businessRepository.count());
-			model.addAttribute("Turkish", businessService.originLand("Turkish").size()*100/businessRepository.count());
-			model.addAttribute("Lebanese", businessService.originLand("Lebanese").size()*100/businessRepository.count());
+	        
+	        Map<String, Integer> graphDataForFoodOrigin = new TreeMap<>();
+	        graphDataForFoodOrigin.put("American", businessService.originLand("American"));
+	        graphDataForFoodOrigin.put("Italian", businessService.originLand("Italian"));
+	        graphDataForFoodOrigin.put("Vietnamese", businessService.originLand("Vitnamese"));
+	        graphDataForFoodOrigin.put("Korean", businessService.originLand("Korean"));
+	        graphDataForFoodOrigin.put("Chinese", businessService.originLand("Chinese"));
+	        graphDataForFoodOrigin.put("Japanese", businessService.originLand("Japanese"));
+	        graphDataForFoodOrigin.put("Moroccan", businessService.originLand("Moroccan"));
+	        graphDataForFoodOrigin.put("Mexican", businessService.originLand("Mexican"));
+	        graphDataForFoodOrigin.put("French", businessService.originLand("French"));
+	        graphDataForFoodOrigin.put("Filipino", businessService.originLand("Filipino"));
+			graphDataForFoodOrigin.put("Irish", businessService.originLand("Irish"));
+			graphDataForFoodOrigin.put("Caribbean", businessService.originLand("Caribbean"));
+			graphDataForFoodOrigin.put("Thai", businessService.originLand("Thai"));
+			graphDataForFoodOrigin.put("Pakistani", businessService.originLand("Pakistani"));
+			graphDataForFoodOrigin.put("Indian", businessService.originLand("Indian"));
+			graphDataForFoodOrigin.put("Middle Eastern", businessService.originLand("Middle Eastern"));
+			graphDataForFoodOrigin.put("Puerto Rican", businessService.originLand("Puerto Rican"));
+			graphDataForFoodOrigin.put("Spanish", businessService.originLand("Spanish"));
+			graphDataForFoodOrigin.put("Greek", businessService.originLand("Greek"));
+			graphDataForFoodOrigin.put("African", businessService.originLand("African"));
+			graphDataForFoodOrigin.put("Turkish", businessService.originLand("Turkish"));
+			graphDataForFoodOrigin.put("Lebanese", businessService.originLand("Lebanese"));
 			
-		return "pieChart";
-	}
+			Map<String, Integer> graphDataForCreditCard = new TreeMap<>();
+			graphDataForCreditCard.put("Credit Card", businessService.acceptCreditCard());
+			graphDataForCreditCard.put("No Credit Card", businessService.acceptNoCreditCard());
+			
+			
+			Map<String, Integer> graphTopStates = new TreeMap<>();
+			
+			 List<String> stateName = businessService.topStates();
+		     List<Integer> stateCount = businessService.topStatesCount();
+			 for(int i = 0; i <10 ; i++) {
+				 graphTopStates.put(stateName.get(i), stateCount.get(i));
+									}	
+			model.addAttribute("graphDataForFoodOrigin", graphDataForFoodOrigin);
+	        model.addAttribute("graphDataForReviews", graphDataForReviews);
+	        model.addAttribute("graphDataForCreditCard", graphDataForCreditCard);
+	        model.addAttribute("graphTopStates", graphTopStates);
+	        
+	        model.addAttribute("titleForReviews", "Businesses with the most review Count");
+	        model.addAttribute("titleForFoodOrigin", "Proportion of Food Origins");
+	        model.addAttribute("titleForCreditCard", "Businesses who take Credit Card vs who dont");
+	        model.addAttribute("titleForTopStates", "Top 10 States with the most Businesses");
 
+
+			model.addAttribute("xAxeTextForReviews", "Business");
+			model.addAttribute("yAxeTextForReviews", "Review Count");
+			
+			model.addAttribute("xAxeTextForCreditCard", "Business");
+			model.addAttribute("yAxeTextForCreditCard", "Credit Card Count");
+			
+			model.addAttribute("xAxeTextForTopStates", "Business");
+			model.addAttribute("yAxeTextForTopStates", "Number of Businesses");
+	        return "chart";
+	    }
 }
