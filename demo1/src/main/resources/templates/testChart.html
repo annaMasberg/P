@@ -1,0 +1,55 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Charts</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+	<div align="center" style="width: 1000px;">
+		<h2> Charts </h2>
+
+		<div id="chart_div3"></div>
+	</div>
+	<script th:inline="javascript">
+		var graphTopCities = /*[[${graphTopCities}]]*/'noValue';
+
+		$(document).ready(function () {
+			google.charts.load('current', {
+				packages: ['corechart', 'bar']
+			});
+
+			google.charts.setOnLoadCallback(drawColumnChart3);
+
+		});
+		function drawColumnChart3() {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', [[${xAxeTextForTopCities}]]);
+			data.addColumn('number', [[${yAxeTextForTopCities}]]);
+			Object.keys(graphTopCities).forEach(function (key) {
+				data.addRow([key, graphTopCities[key]]);
+			});
+			var options = {
+				title: [[${titleForTopCities}]],
+				hAxis: {
+					title: [[${xAxeTextForTopCities}]],
+				},
+				vAxis: {
+					title: [[${yAxeTextForTopCities}]]
+				}
+			};
+			
+			var chart = new google.visualization.ColumnChart(document
+				.getElementById('chart_div3'));
+			chart.draw(data, options);
+
+			
+
+	</script>
+</body>
+
+</html>

@@ -5,15 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.demo1.Model.Business;
 import com.example.demo1.Model.Location;
-import com.example.demo1.Model.Tip;
 import com.example.demo1.Repository.BusinessRepository;
 
 @Service
@@ -22,7 +19,7 @@ public class BusinessService {
 	@Autowired
 	BusinessRepository businessRepository;
 
-	public List<Business> businessFilter(String takesBusinessCard, String attributesOpen24hours,
+	public Page<Business> businessFilter(Pageable pageable, String takesBusinessCard, String attributesOpen24hours,
 			String attributesRestaurantstakeout, String attributesWheelchairaccessible,
 			String attributesRestaurantstableservice, String attributesRestaurantsreservations,
 			String attributesRestaurantsgoodforgroups, String attributesRestaurantsdelivery,
@@ -32,10 +29,14 @@ public class BusinessService {
 			String attributesCaters, String attributesByappointmentonly, String attributesBusinessacceptsbitcoin,
 			String attributesBikeparking, String attributesByob, String attributesAcceptsinsurance, String foodType,
 			String foodOrigin, String drinkType, String vegan, String vegetarian, String name, String city,
-			String state, String postalCode) {
+			String state, String postalCode, String pubs, String bars, String restaurants, String clubs, String hotels,
+			String buffets, String salons, String apartments, String gyms, String bookstores, String shopping,
+			String stores, String entertainments, String arts, String lounges, String doctors, String dentists,
+			String chiropractors, String pet, String automotive, String homeServices, String banks, String spas,
+			String education, String fitness, String glutenFree) {
 
 		BusinessSpecificationsBuilder builder = new BusinessSpecificationsBuilder();
-
+//-------------------------------------------------------------------------------------------------------------------------CHECKBOX
 		if (takesBusinessCard != null) {
 			SearchCriteria searchCriteria = new SearchCriteria("attributesBusinessacceptscreditcards", true, "=");
 			BusinessSpecifications specTakesCreditCard = new BusinessSpecifications(searchCriteria);
@@ -186,6 +187,149 @@ public class BusinessService {
 			builder.with(specVegetarian);
 		}
 
+		if (pubs != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Pubs", ":");
+			BusinessSpecifications specPubs = new BusinessSpecifications(searchCriteria);
+			builder.with(specPubs);
+		}
+
+		if (bars != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Bars", ":");
+			BusinessSpecifications specBars = new BusinessSpecifications(searchCriteria);
+			builder.with(specBars);
+		}
+
+		if (restaurants != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Restaurants", ":");
+			BusinessSpecifications specRestaurants = new BusinessSpecifications(searchCriteria);
+			builder.with(specRestaurants);
+		}
+
+		if (clubs != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Clubs", ":");
+			BusinessSpecifications specClubs = new BusinessSpecifications(searchCriteria);
+			builder.with(specClubs);
+		}
+
+		if (hotels != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Hotels", ":");
+			BusinessSpecifications specHotels = new BusinessSpecifications(searchCriteria);
+			builder.with(specHotels);
+		}
+
+		if (buffets != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Buffets", ":");
+			BusinessSpecifications specBuffets = new BusinessSpecifications(searchCriteria);
+			builder.with(specBuffets);
+		}
+
+		if (salons != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Salons", ":");
+			BusinessSpecifications specSalons = new BusinessSpecifications(searchCriteria);
+			builder.with(specSalons);
+		}
+		if (apartments != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Apartments", ":");
+			BusinessSpecifications specApartments = new BusinessSpecifications(searchCriteria);
+			builder.with(specApartments);
+		}
+
+		if (gyms != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Gyms", ":");
+			BusinessSpecifications specGyms = new BusinessSpecifications(searchCriteria);
+			builder.with(specGyms);
+		}
+
+		if (bookstores != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Bookstores", ":");
+			BusinessSpecifications specBookstores = new BusinessSpecifications(searchCriteria);
+			builder.with(specBookstores);
+
+		}
+
+		if (shopping != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Shopping", ":");
+			BusinessSpecifications specShopping = new BusinessSpecifications(searchCriteria);
+			builder.with(specShopping);
+		}
+
+		if (stores != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Stores", ":");
+			BusinessSpecifications specStores = new BusinessSpecifications(searchCriteria);
+			builder.with(specStores);
+		}
+		if (entertainments != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Entertainments", ":");
+			BusinessSpecifications specEntertainments = new BusinessSpecifications(searchCriteria);
+			builder.with(specEntertainments);
+		}
+		if (arts != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Arts", ":");
+			BusinessSpecifications specArts = new BusinessSpecifications(searchCriteria);
+			builder.with(specArts);
+		}
+		if (lounges != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Lounges", ":");
+			BusinessSpecifications specLounges = new BusinessSpecifications(searchCriteria);
+			builder.with(specLounges);
+		}
+		if (doctors != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Doctors", ":");
+			BusinessSpecifications specDoctors = new BusinessSpecifications(searchCriteria);
+			builder.with(specDoctors);
+		}
+		if (dentists != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Dentists", ":");
+			BusinessSpecifications specDentists = new BusinessSpecifications(searchCriteria);
+			builder.with(specDentists);
+		}
+		if (chiropractors != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Chiropractors", ":");
+			BusinessSpecifications specChiropractors = new BusinessSpecifications(searchCriteria);
+			builder.with(specChiropractors);
+		}
+		if (pet != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Pet", ":");
+			BusinessSpecifications specPet = new BusinessSpecifications(searchCriteria);
+			builder.with(specPet);
+		}
+		if (automotive != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Automotive", ":");
+			BusinessSpecifications specAutomotive = new BusinessSpecifications(searchCriteria);
+			builder.with(specAutomotive);
+		}
+		if (homeServices != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Home Services", ":");
+			BusinessSpecifications specHomeServices = new BusinessSpecifications(searchCriteria);
+			builder.with(specHomeServices);
+		}
+		if (banks != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Banks", ":");
+			BusinessSpecifications specBanks = new BusinessSpecifications(searchCriteria);
+			builder.with(specBanks);
+		}
+		if (spas != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Spas", ":");
+			BusinessSpecifications specSpas = new BusinessSpecifications(searchCriteria);
+			builder.with(specSpas);
+		}
+		if (education != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Education", ":");
+			BusinessSpecifications specEducation = new BusinessSpecifications(searchCriteria);
+			builder.with(specEducation);
+		}
+		if (fitness != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Fitness", ":");
+			BusinessSpecifications specFitness = new BusinessSpecifications(searchCriteria);
+			builder.with(specFitness);
+		}
+		if (glutenFree != null) {
+			SearchCriteria searchCriteria = new SearchCriteria("categories", "Gluten-Free", ":");
+			BusinessSpecifications specGlutenFree = new BusinessSpecifications(searchCriteria);
+			builder.with(specGlutenFree);
+		}
+
+//-------------------------------------------------------------------------------------------------DROPDOWNS
 		if (!foodType.equals("0")) {
 			SearchCriteria searchCriteria = new SearchCriteria("categories", foodType, ":");
 			BusinessSpecifications specFoodType = new BusinessSpecifications(searchCriteria);
@@ -203,7 +347,7 @@ public class BusinessService {
 			BusinessSpecifications specDrinkType = new BusinessSpecifications(searchCriteria);
 			builder.with(specDrinkType);
 		}
-
+//--------------------------------------------------------------------------------------------------INPUTS
 		if (name != null && !name.isBlank()) {
 			SearchCriteria searchCriteria = new SearchCriteria("name", name, "=");
 			BusinessSpecifications specName = new BusinessSpecifications(searchCriteria);
@@ -229,36 +373,12 @@ public class BusinessService {
 
 		Specification<Business> specs = builder.build();
 
-		return businessRepository.findAll(specs);
+		return businessRepository.findAll(specs, pageable);
 
 	}
 
-	public List<Location> coolLocations(String businessId) {
-		List<Business> list = businessRepository.findByBusinessId(businessId);
-		ArrayList<Location> coordinations = new ArrayList<Location>();
-		for (Business business : list) {
-			int i1 = business.longitude.indexOf(".");
-			int i2 = business.latitude.indexOf(".");
-			coordinations.add(new Location(new double[] {
-					Double.parseDouble(business.longitude.substring(0, i1 + 1)
-							+ business.longitude.substring(i1).replaceAll("\\.", "")),
-					Double.parseDouble(business.latitude.substring(0, i2 + 1)
-							+ business.latitude.substring(i2).replaceAll("\\.", "")) },
-					business.name));
-		}
-		return coordinations;
-	}
-
-	public ArrayList<Tip> tipsForBusiness(List<Tip> tipList, ArrayList<Tip> businessTipList, String businessId) {
-		for (Tip tip : tipList) {
-			if (businessId.equals(tip.businessId)) {
-				businessTipList.add(tip);
-			}
-		}
-		return businessTipList;
-	}
-
-	public List<Business> findBusinessByStats(String name, String state, String city, String postalCode) {
+	public Page<Business> findBusinessByStats(String name, String state, String city, String postalCode,
+			Pageable pageable) {
 		BusinessSpecificationsBuilder builder = new BusinessSpecificationsBuilder();
 
 		if (name != null && !name.isBlank()) {
@@ -286,8 +406,24 @@ public class BusinessService {
 
 		Specification<Business> specs = builder.build();
 
-		return businessRepository.findAll(specs);
+		return businessRepository.findAll(specs, pageable);
 
+	}
+
+	public List<Location> locator(String businessId) {
+		List<Business> list = businessRepository.findByBusinessId(businessId);
+		ArrayList<Location> coordinations = new ArrayList<Location>();
+		for (Business business : list) {
+			int i1 = business.longitude.indexOf(".");
+			int i2 = business.latitude.indexOf(".");
+			coordinations.add(new Location(new double[] {
+					Double.parseDouble(business.longitude.substring(0, i1 + 1)
+							+ business.longitude.substring(i1).replaceAll("\\.", "")),
+					Double.parseDouble(business.latitude.substring(0, i2 + 1)
+							+ business.latitude.substring(i2).replaceAll("\\.", "")) },
+					business.name));
+		}
+		return coordinations;
 	}
 
 	public String priceRangefinder(Business business) {
@@ -302,19 +438,7 @@ public class BusinessService {
 			return "";
 	}
 
-	public List<Business> getAllBusinesses(Integer pageNo, Integer pageSize, String sortBy) {
-		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-
-		Page<Business> pagedResult = businessRepository.findAll(paging);
-
-		if (pagedResult.hasContent()) {
-			return pagedResult.getContent();
-		} else {
-			return new ArrayList<Business>();
-		}
-	}
-
-	public String getBusinessAmbience(Business business) {
+	public String ambienceChanger(Business business) {
 		String attribute = "";
 		if (business.attributesAmbience.contains("'romantic': True")) {
 			attribute = attribute + "Romantic · ";
@@ -346,8 +470,8 @@ public class BusinessService {
 		return attribute;
 	}
 
-	public String getBusinessBestNights(Business business) {
-		String attribute = "Best Nights: ";
+	public String bestNightsChanger(Business business) {
+		String attribute = " | Best Nights: ";
 		if (business.attributesBestnights.contains("'monday': True")) {
 			attribute = attribute + "Monday · ";
 		}
@@ -370,14 +494,14 @@ public class BusinessService {
 			attribute = attribute + "Sunday";
 		}
 
-		if (attribute.equals("Best Nights: ")) {
+		if (attribute.equals(" | Best Nights: ")) {
 			return "";
 		}
 		return attribute;
 	}
 
-	public String getBusinessParking(Business business) {
-		String attribute = "Parking: ";
+	public String parkingChanger(Business business) {
+		String attribute = " | Parking: ";
 		if (business.attributesBusinessparking.contains("'garage': True")) {
 			attribute = attribute + "Garage · ";
 		}
@@ -387,21 +511,47 @@ public class BusinessService {
 		if (business.attributesBusinessparking.contains("'lot': True")) {
 			attribute = attribute + "Lot · ";
 		}
-		if (business.attributesBusinessparking.contains("'validated': True'")) {
+		if (business.attributesBusinessparking.contains("'validated': True")) {
 			attribute = attribute + "validated · ";
 		}
 		if (business.attributesBusinessparking.contains("'valet': True")) {
 			attribute = attribute + "with Valet";
 		}
 
-		if (attribute.equals("Parking: ")) {
+		if (attribute.equals(" | Parking: ")) {
 			return "";
 		}
 		return attribute;
 	}
 
-	public String getBusinessDietaryrestrictions(Business business) {
-		String attribute = "Dietary Restrictions: ";
+	public String mealChanger(Business business) {
+		String attribute = " | Meal: ";
+		if (business.attributesGoodformeal.contains("'dessert': True")) {
+			attribute = attribute + "dessert · ";
+		}
+		if (business.attributesGoodformeal.contains("'latenight': True")) {
+			attribute = attribute + "late Night · ";
+		}
+		if (business.attributesGoodformeal.contains("'lunch': True")) {
+			attribute = attribute + "lunch · ";
+		}
+		if (business.attributesGoodformeal.contains("'dinner': True")) {
+			attribute = attribute + "dinner · ";
+		}
+		if (business.attributesGoodformeal.contains("'brunch': True")) {
+			attribute = attribute + "brunch · ";
+		}
+		if (business.attributesGoodformeal.contains("'breakfast': True")) {
+			attribute = attribute + "breakfast · ";
+		}
+		if (attribute.equals(" | Meal: ")) {
+			return "";
+		}
+		return attribute;
+	}
+
+	public String dietrestrictionsChanger(Business business) {
+		String attribute = " | Dietary Restrictions: ";
 		if (business.attributesDietaryrestrictions.contains("'dairy-free': True")) {
 			attribute = attribute + "Dairy-free · ";
 		}
@@ -411,7 +561,7 @@ public class BusinessService {
 		if (business.attributesDietaryrestrictions.contains("'vegan': True")) {
 			attribute = attribute + "Vegan · ";
 		}
-		if (business.attributesDietaryrestrictions.contains("'kosher': True'")) {
+		if (business.attributesDietaryrestrictions.contains("'kosher': True")) {
 			attribute = attribute + "Kosher · ";
 		}
 		if (business.attributesDietaryrestrictions.contains("'halal': True")) {
@@ -424,41 +574,14 @@ public class BusinessService {
 			attribute = attribute + "Vegetarian · ";
 		}
 
-		if (attribute.equals("Dietary Restrictions: ")) {
+		if (attribute.equals(" | Dietary Restrictions: ")) {
 			return "";
 		}
 		return attribute;
 	}
 
-	public String getBusinessGoodforMeal(Business business) {
-		String attribute = "Meal: ";
-		if (business.attributesDietaryrestrictions.contains("'dessert': True")) {
-			attribute = attribute + "dessert · ";
-		}
-		if (business.attributesDietaryrestrictions.contains("'latenight': True")) {
-			attribute = attribute + "late Night · ";
-		}
-		if (business.attributesDietaryrestrictions.contains("'lunch': True")) {
-			attribute = attribute + "lunch · ";
-		}
-		if (business.attributesDietaryrestrictions.contains("'dinner': True'")) {
-			attribute = attribute + "dinner · ";
-		}
-		if (business.attributesDietaryrestrictions.contains("'brunch': True")) {
-			attribute = attribute + "brunch · ";
-		}
-		if (business.attributesDietaryrestrictions.contains("'breakfast': True")) {
-			attribute = attribute + "breakfast · ";
-		}
-
-		if (attribute.equals("Meal: ")) {
-			return "";
-		}
-		return attribute;
-	}
-
-	public String getBusinessHairspecializesin(Business business) {
-		String attribute = "Hair Specialization: ";
+	public String hairChanger(Business business) {
+		String attribute = " | Hair Specialization: ";
 		if (business.attributesHairspecializesin.contains("'straightperms': True")) {
 			attribute = attribute + "Straight Perms · ";
 		}
@@ -468,7 +591,7 @@ public class BusinessService {
 		if (business.attributesHairspecializesin.contains("'extensions': True")) {
 			attribute = attribute + "Extensions · ";
 		}
-		if (business.attributesHairspecializesin.contains("'africanamerican': True'")) {
+		if (business.attributesHairspecializesin.contains("'africanamerican': True")) {
 			attribute = attribute + "African American · ";
 		}
 		if (business.attributesHairspecializesin.contains("'curly': True")) {
@@ -484,37 +607,37 @@ public class BusinessService {
 			attribute = attribute + "Asian · ";
 		}
 
-		if (attribute.equals("Hair Specialization: ")) {
+		if (attribute.equals(" | Hair Specialization: ")) {
 			return "";
 		}
+
 		return attribute;
 	}
 
-	public String getBusinessMusic(Business business) {
-		String attribute = "Music: ";
-		if (business.attributesHairspecializesin.contains("'dj': True")) {
+	public String musicChanger(Business business) {
+		String attribute = " | Music: ";
+		if (business.attributesMusic.contains("'dj': True")) {
 			attribute = attribute + "DJ · ";
 		}
-		if (business.attributesHairspecializesin.contains("'backgroud_music': True")) {
+		if (business.attributesMusic.contains("'backgroud_music': True")) {
 			attribute = attribute + "Backgroud Music · ";
 		}
-		if (business.attributesHairspecializesin.contains("'no_music': True")) {
+		if (business.attributesMusic.contains("'no_music': True")) {
 			attribute = attribute + "No Music · ";
 		}
-		if (business.attributesHairspecializesin.contains("'jukebox': True'")) {
+		if (business.attributesMusic.contains("'jukebox': True")) {
 			attribute = attribute + "JukeBox · ";
 		}
-		if (business.attributesHairspecializesin.contains("'live': True")) {
+		if (business.attributesMusic.contains("'live': True")) {
 			attribute = attribute + "Live · ";
 		}
-		if (business.attributesHairspecializesin.contains("'video': True")) {
+		if (business.attributesMusic.contains("'video': True")) {
 			attribute = attribute + "Video · ";
 		}
-		if (business.attributesHairspecializesin.contains("'karaoke': True")) {
+		if (business.attributesMusic.contains("'karaoke': True")) {
 			attribute = attribute + "Karaoke · ";
 		}
-
-		if (attribute.equals("Music: ")) {
+		if (attribute.equals(" | Music: ")) {
 			return "";
 		}
 		return attribute;
@@ -526,32 +649,38 @@ public class BusinessService {
 	public List<String> topReviewedBusinessesName() {
 		return businessRepository.findTopReviewName();
 	}
-	
+
 	public List<Integer> topReviewedBusinesses() {
 		return businessRepository.findTopReviews();
 	}
-	
+
 	public Integer originLand(String land) {
 		return businessRepository.findByOriginLand(land);
 	}
-	
+
 	public Integer acceptCreditCard() {
 		return businessRepository.findBusinessCreditCardCount();
 	}
-	
+
 	public Integer acceptNoCreditCard() {
 		return businessRepository.findBusinessNOCreditCardCount();
 	}
-	
+
 	public List<String> topCities(String state) {
 		return businessRepository.findTopCities(state);
 	}
+	
+	public List<Integer> topCitiesCount(String state) {
+		return businessRepository.findTopCitiesCount(state);
+	}
+
 	public List<String> topStates() {
 		return businessRepository.findTopStates();
 	}
-	
+
 	public List<Integer> topStatesCount() {
 		return businessRepository.findTopStatesCount();
 	}
-	
+
+
 }

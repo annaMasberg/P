@@ -1,7 +1,5 @@
 package com.example.demo1.Model;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,14 +8,30 @@ public class Tip {
 
 	@Id
 	public String userId;
-	
+
 	public String businessId;
-	
-	public String text;
-	
-	public String date; 			//DATETIME
-	
+
+	public String tipReview;
+
+	public String tipDate;
+
 	public int complimentCount;
+
+	public String getTipReview() {
+		return tipReview;
+	}
+
+	public void setTipReview(String tipReview) {
+		this.tipReview = tipReview;
+	}
+
+	public String getTipDate() {
+		return tipDate;
+	}
+
+	public void setTipDate(String tipDate) {
+		this.tipDate = tipDate;
+	}
 
 	public String getUserId() {
 		return userId;
@@ -35,22 +49,6 @@ public class Tip {
 		this.businessId = businessId;
 	}
 
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
 	public int getComplimentCount() {
 		return complimentCount;
 	}
@@ -58,5 +56,5 @@ public class Tip {
 	public void setComplimentCount(int complimentCount) {
 		this.complimentCount = complimentCount;
 	}
-	
+
 }

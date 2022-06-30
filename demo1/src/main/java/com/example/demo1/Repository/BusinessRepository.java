@@ -46,4 +46,8 @@ public interface BusinessRepository extends JpaSpecificationExecutor<Business>, 
 	
 	@Query(value="SELECT city FROM business WHERE state = CONCAT('%',:keyword,'%') GROUP BY city ORDER BY COUNT(city) DESC limit 10", nativeQuery = true)
 	List<String> findTopCities(@Param("keyword") String keyword);
+	
+	@Query(value="SELECT count(city) FROM business WHERE state = CONCAT('%',:keyword,'%') GROUP BY city ORDER BY COUNT(city) DESC limit 10", nativeQuery = true)
+	List<Integer> findTopCitiesCount(@Param("keyword") String keyword);
+	
 }

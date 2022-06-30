@@ -1,47 +1,40 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	
-	<head>
-		<title>Tip</title>
-		
-		<link rel="stylesheet" 
-			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
-			integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" 
-			crossorigin="anonymous" />
-	</head>
-	<header th:insert="fragments/menu :: Hauptmenu"></header>
-	<body>
-		
-		<div class="container">
-		
-			<h3>Tips</h3>
-			
-			<hr/>
-		
-			<table class="table table-bordered table-striped">
-			
-				<thead>
-					<tr>
-						<th>User ID</th>
-						<th>Business ID</th>
-						<th>Text</th>
-						<th>Date</th>
-						<th>Compliment count</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="tip: ${data}">
-						<td th:text="${tip.userId}" />
-						<td th:text="${tip.businessId}" />
-						<td th:text="${tip.text}" />
-						<td th:text="${tip.date}" />
-						<td th:text="${tip.complimentCount}" />
-					</tr>
-				</tbody>
-				
-			</table>
-		</div>
-		
-		
-	</body>
-	
+
+<head>
+	<title>Tip</title>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+</head>
+<header th:insert="fragments/menu :: Hauptmenu"></header>
+
+<body>
+
+	<div class="container">
+
+		<h3>Tips</h3>
+
+		<hr />
+
+		<table class="table table-bordered table-striped">
+
+			<thead>
+				<tr>
+					<th>Text</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="tip: ${data}">
+					<td th:text="${tip.tipReview}" />
+					<td th:text="${tip.tipDate}" />
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+
+
+</body>
+
 </html>

@@ -10,18 +10,18 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.example.demo1.Model.Business;
+import com.example.demo1.Model.Tip;
 
-public class BusinessSpecifications implements Specification<Business> {
+public class TipSpecifications implements Specification<Tip> {
 
 	private SearchCriteria criteria;
 
-	public BusinessSpecifications(SearchCriteria criteria) {
+	public TipSpecifications(SearchCriteria criteria) {
 		this.criteria = criteria;
 	}
 
 	@Override
-	public Predicate toPredicate(Root<Business> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+	public Predicate toPredicate(Root<Tip> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 		List<Predicate> predicates = new ArrayList<>();
 		if (criteria.getOperation().equals("=")) {
 			predicates.add(criteriaBuilder.equal(root.get(criteria.getKey()), criteria.getValue()));
@@ -39,5 +39,4 @@ public class BusinessSpecifications implements Specification<Business> {
 	public void setCriteria(SearchCriteria criteria) {
 		this.criteria = criteria;
 	}
-
 }

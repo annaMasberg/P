@@ -2,7 +2,8 @@
 
 <head>
 	<title>Business</title>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
 		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
@@ -37,282 +38,500 @@
 		.round {
 			border-radius: 50%;
 		}
+
+		.btn {
+			background-color: DodgerBlue;
+			border: none;
+			color: white;
+			padding: 12px 16px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		/* Darker background on mouse-over */
+		.btn:hover {
+			background-color: RoyalBlue;
+		}
+
+		div.sticky {
+			position: -webkit-sticky;
+			position: sticky;
+			top: 0;
+			float: right;
+			padding: 5px;
+		}
+
+		div.business {
+			box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+			width: 800px;
+			margin: auto;
+			padding: 10px;
+			margin-bottom: 50px;
+		}
+
+
+
+		ul li {
+			margin-left: auto;
+			margin-right: auto;
+		}
 	</style>
 </head>
 
-<header th:insert="fragments/menu :: Hauptmenu"></header>
-<form action="/filterBusiness" method="POST">
-	<input type="text" id="name" name="name" th:value="${name}" placeholder="Name">
-	<input type="text" id="name" name="state" th:value="${state}" placeholder="state">
-	<input type="text" id="name" name="city" th:value="${city}" placeholder="city">
-	<input type="text" id="name" name="postalCode" th:value="${postalCode}" placeholder="Postal Code">
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="takesBusinessCard" th:value="1" /> Takes Credit Card
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesOpen24hours" th:value="1" /> 24h
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantstakeout" th:value="1" /> Take out
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesWheelchairaccessible" th:value="1" /> Wheelchair
-		Accessible
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantstableservice" th:value="1" /> Table
-		Service
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantsreservations" th:value="1" /> Reservation
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantsgoodforgroups" th:value="1" /> Good for
-		Groups
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantsdelivery" th:value="1" /> Delivery
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantscounterservice" th:value="1" /> Counter
-		Service
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesOutdoorseating" th:value="1" /> Outdoor
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesHastv" th:value="1" /> TV
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesHappyhour" th:value="1" /> Happy Hour
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesGoodforkids" th:value="1" /> Good for Kids
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesGoodfordancing" th:value="1" /> Dancing
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesDrivethru" th:value="1" /> Drivethru
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesDogsallowed" th:value="1" /> Dogs allowed
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesCoatcheck" th:value="1" /> Coat Check
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesByappointmentonly" th:value="1" /> By Appointment
-		only
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesBusinessacceptsbitcoin" th:value="1" /> Accepts
-		Bitcoin
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesBikeparking" th:value="1" /> Bike Parking
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesByob" th:value="1" /> BYOB
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="attributesAcceptsinsurance" th:value="1" /> Insurance
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="vegan" th:value="1" /> Vegan
-	</label>
-	<label>
-		<input type="checkbox" class="ads_Checkbox" name="vegetarian" th:value="1" /> Vegetarian
-	</label>
+<body>
 
-	<select name="foodOrigin" th:value="foodOrigin">
-		<option th:value="0" th:text="'Food Origin'">American</option>
-		<option th:value="Italian" th:text="Italian">Italian</option>
-		<option th:value="Vietnamese" th:text="Vietnamese">Vietnamese</option>
-		<option th:value="Korean" th:text="Korean">Korean</option>
-		<option th:value="Asian" th:text="Asian">Asian</option>
-		<option th:value="Japanese" th:text="Japanese">Japanese</option>
-		<option th:value="Chinese" th:text="Chinese">Chinese</option>
-		<option th:value="Mexican" th:text="Mexican">Mexican</option>
-		<option th:value="Moroccan" th:text="Moroccan">Moroccan</option>
-		<option th:value="French" th:text="French">French</option>
-		<option th:value="Filipino" th:text="Filipino">Filipino</option>
-		<option th:value="Irish" th:text="Irish">Irish</option>
-		<option th:value="Caribbean" th:text="Caribbean">Caribbean</option>
-		<option th:value="Thai" th:text="Thai">Thai</option>
-		<option th:value="Pakistani" th:text="Pakistani">Pakistani</option>
-		<option th:value="Idian" th:text="Indian">Indian</option>
-		<option th:value="'Middle Eastern'" th:text="'Middle Eastern'">Middle Eastern</option>
-		<option th:value="'Puerto Rican'" th:text="'Puerto Rican'">Puerto Rican</option>
-		<option th:value="Honduran" th:text="Honduran">Honduran</option>
-		<option th:value="Spanish" th:text="Spanish">Spanish</option>
-		<option th:value="Greek" th:text="Greek">Greek</option>
-		<option th:value="African" th:text="African">African</option>
-		<option th:value="Turkish" th:text="Turkish">Turkish</option>
-		<option th:value="Lebanese" th:text="Lebanese">Lebanese</option>
-		<option th:value="Greek" th:text="Greek">Greek</option>
-		<option th:value="American" th:text="American">American</option>
+	<header th:insert="fragments/menu :: Hauptmenu"></header>
 
-	</select>
+	<div class="sticky">
+		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i
+				class="fa fa-filter" aria-hidden="true"></i>
+		</button>
+	</div>
 
-	<select name="foodType" th:value="foodType">
-		<option th:value="0" th:text="'Food Type'">Food Type</option>
-		<option th:value="Ramen" th:text="Ramen">Ramen</option>
-		<option th:value="Seafood" th:text="Seafood">Seafood</option>
-		<option th:value="Burgers" th:text="Burgers">Burger</option>
-		<option th:value="Pizza" th:text="Pizza">Pizza</option>
-		<option th:value="'Ice Cream'" th:text="'Ice Cream'">Ice Cream</option>
-		<option th:value="'Hot Dogs'" th:text="'Hot Dogs'">Hot Dogs</option>
-		<option th:value="'Chicken Wings'" th:text="'Chicken Wings'">Chicken Wings</option>
-		<option th:value="'Frozen Yogurt'" th:text="'Frozen Yogurt'">Frozen Yogurt</option>
-		<option th:value="Sushi" th:text="Sushi">Sushi</option>
-		<option th:value="Bakeries" th:text="Bakeries">Bakeries</option>
-		<option th:value="Soup" th:text="Soup">Soup</option>
-		<option th:value="Cupcakes" th:text="Cupcakes">Cupcakes</option>
-		<option th:value="Steakhouses" th:text="Steakhouses">Steak</option>
-		<option th:value="Sandwiches" th:text="Sandwiches">Caribbean</option>
-		<option th:value="Bagels" th:text="Bagels">Bagels</option>
-		<option th:value="Donuts" th:text="Donuts">Donuts</option>
-		<option th:value="Kebab" th:text="Kebab">Kebab</option>
-		<option th:value="Desserts" th:text="Desserts">Desserts</option>
-		<option th:value="Barbeque" th:text="Barbeque">Barbeque</option>
-		<option th:value="Salad" th:text="Salad">Salad</option>
-		<option th:value="Pasta" th:text="Pasta">Pasta</option>
-		<option th:value="Bowls" th:text="Bowls">Bowls</option>
-		<option th:value="Tacos" th:text="Tacos">Tacos</option>
-		<option th:value="Pretzels" th:text="Pretzels">Pretzels</option>
-		<option th:value="Donuts" th:text="Donuts">Donuts</option>
-	</select>
+	<form action="/filterBusiness/0" method="POST">
 
-	<select name="drinkType" th:value="drinkType">
-		<option th:value="0" th:text="'Drink Type'">Drink Type</option>
-		<option th:value="Tea" th:text="Tea">Tea</option>
-		<option th:value="Coffee" th:text="Coffee">Coffee</option>
-		<option th:value="Cocktail" th:text="Cocktail">Cocktail</option>
-		<option th:value="Wine" th:text="Wine">Wine</option>
-		<option th:value="Smoothies" th:text="Smoothies">Smoothies</option>
-		<option th:value="Beer" th:text="Beer">Beer</option>
-		<option th:value="Spirits" th:text="Spirits">Spirits</option>
-		<option th:value="Juice" th:text="Juice">Juice</option>
-		<option th:value="'Bubble Tea'" th:text="'Bubble Tea'">Bubble Tea</option>
-	</select>
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
 
-	<input type="submit" class="btn btn-primary" value="Submit">
-</form>
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Filter</h5>
+						<button type="button" class="btn-close bi bi-x-lg text-danger" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
 
-<p th:each="business: ${data}">
-	<span STYLE="font-size:18.0pt" th:text="${business.name}"> </span>
-	<span th:text="${business.stars}" class="fa fa-star checked"> </span>
-	<span th:text="|(${business.reviewCount})|"> </span>
-	<span th:text="| · ${business.attributesRestaurantspricerange}|"> </span>
-	<span th:text="${business.attributesAgesallowed}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.isOpen} ? 'OPEN' : 'CLOSED' " th:style="${business.isOpen ? 'color:green' : 'color:red'}">
-	</span>
-	<br>
-	<span th:text="|${business.address}, ${business.city}|"> </span>
-	<br>
-	<span th:text="|${business.state}, ${business.postalCode}|"> </span>
-	<br>
-	<span th:text="${business.categories}"> </span>
-	<br>
-	<span th:text="${business.attributesBestnights}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesBusinessparking}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesDietaryrestrictions}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesGoodformeal}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesHairspecializesin}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesMusic}" style="color : red"> </span>
-	<br>
-	<span th:text="${business.attributesAmbience}" style="color : green"> </span>
-	<span th:text="${business.attributesHappyhour} ? 'Happy hour ·' : ''"
-		th:style="${business.attributesHappyhour ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesOutdoorseating} ? 'Outdoor Seating ·' : ''"
-		th:style="${business.attributesOutdoorseating ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesBikeparking} ? 'Bike Parking ·' : ''"
-		th:style="${business.attributesBikeparking ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesDrivethru} ? 'Has Drive-Thru ·' : ''"
-		th:style="${business.attributesDrivethru ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesGoodforkids} ? 'Good for Kids ·' : ''"
-		th:style="${business.attributesGoodforkids ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantsdelivery} ? 'Delivery ·' : ''"
-		th:style="${business.attributesRestaurantsdelivery ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantsreservations} ? 'Reservation ·' : ''"
-		th:style="${business.attributesRestaurantsreservations ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantstakeout} ? 'Takeout ·' : ''"
-		th:style="${business.attributesRestaurantstakeout ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantstableservice} ? 'Table Service ·' : ''"
-		th:style="${business.attributesRestaurantstableservice ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesWheelchairaccessible} ? 'Wheelchair Accessible ·' : ''"
-		th:style="${business.attributesWheelchairaccessible ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantsgoodforgroups} ? 'Good for Groups ·' : ''"
-		th:style="${business.attributesRestaurantsgoodforgroups ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesRestaurantscounterservice} ? 'Counter Service ·' : ''"
-		th:style="${business.attributesRestaurantscounterservice ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesHastv} ? 'TV ·' : ''"
-		th:style="${business.attributesHastv ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesGoodfordancing} ? 'Good for Dancing ·' : ''"
-		th:style="${business.attributesGoodfordancing ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesDogsallowed} ? 'Dogs allowed ·' : ''"
-		th:style="${business.attributesDogsallowed ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesCorkage} ? 'Corkage Fee ·' : ''"
-		th:style="${business.attributesCorkage ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesCoatcheck} ? 'Coat Check ·' : ''"
-		th:style="${business.attributesCoatcheck ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesCaters} ? 'Caters ·' : ''"
-		th:style="${business.attributesCaters ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesByappointmentonly} ? 'By Appointment Only ·' : ''"
-		th:style="${business.attributesByappointmentonly ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesBusinessacceptscreditcards} ? 'Takes Credit Card ·' : ''"
-		th:style="${business.attributesBusinessacceptscreditcards ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesBusinessacceptsbitcoin} ? 'Takes BitCoin ·' : ''"
-		th:style="${business.attributesBusinessacceptsbitcoin ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesByob} ? 'BYOB ·' : ''"
-		th:style="${business.attributesByob ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesAcceptsinsurance} ? 'Accepts Insurance ·' : ''"
-		th:style="${business.attributesAcceptsinsurance ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesOpen24hours} ? '24H ·' : ''"
-		th:style="${business.attributesOpen24hours ? 'color:green' : 'color:red'}"> </span>
-	<span th:text="${business.attributesHappyhour} ? 'Happy hour ·' : ''"
-		th:style="${business.attributesHappyhour ? 'color:orange' : 'color:red'}"> </span>
-	<span th:text="|${business.attributesAlcohol} ·|" style="color : green"> </span>
-	<span th:text="|${business.attributesByobcorkage} ·|" style="color : green"> </span>
-	<span th:text="|${business.attributesRestaurantsattire} ·|" style="color : green"> </span>
-	<span th:text="|${business.attributesSmoking} ·|" style="color : green"> </span>
-	<span th:text="|${business.attributesWifi} ·|" style="color : green"> </span>
-
-	<span th:text="|Noise Level: ${business.attributesNoiselevel} ·|" style="color : green"> </span>
+					<div class="modal-body">
+						<input type="text" id="name" name="name" th:value="${name}" placeholder="Name">
+						<input type="text" id="name" name="state" th:value="${state}" placeholder="state">
+						<input type="text" id="name" name="city" th:value="${city}" placeholder="city">
+						<input type="text" id="name" name="postalCode" th:value="${postalCode}"
+							placeholder="Postal Code">
 
 
-</p>
+						<details>
+							<summary>Attributes</summary>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="takesBusinessCard" th:value="1" />
+								Takes
+								Credit Card
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesOpen24hours" th:value="1" />
+								24h
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantstakeout"
+									th:value="1" />
+								Take out
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesWheelchairaccessible"
+									th:value="1" /> Wheelchair
+								Accessible
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantstableservice"
+									th:value="1" /> Table
+								Service
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantsreservations"
+									th:value="1" /> Reservation
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantsgoodforgroups"
+									th:value="1" /> Good for
+								Groups
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantsdelivery"
+									th:value="1" />
+								Delivery
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesRestaurantscounterservice"
+									th:value="1" /> Counter
+								Service
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesOutdoorseating"
+									th:value="1" />
+								Outdoor
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesHastv" th:value="1" /> TV
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesHappyhour" th:value="1" />
+								Happy
+								Hour
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesGoodforkids" th:value="1" />
+								Good
+								for Kids
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesGoodfordancing"
+									th:value="1" />
+								Dancing
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesDrivethru" th:value="1" />
+								Drivethru
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesDogsallowed" th:value="1" />
+								Dogs
+								allowed
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesCoatcheck" th:value="1" />
+								Coat
+								Check
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesByappointmentonly"
+									th:value="1" />
+								By Appointment
+								only
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesBusinessacceptsbitcoin"
+									th:value="1" /> Accepts
+								Bitcoin
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesBikeparking" th:value="1" />
+								Bike
+								Parking
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesByob" th:value="1" /> BYOB
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="attributesAcceptsinsurance"
+									th:value="1" />
+								Insurance
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="vegan" th:value="1" /> Vegan
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="vegetarian" th:value="1" /> Vegetarian
+							</label>
 
-<nav aria-label="Page navigation">
-	<ul class="pagination">
-		<li th:if="${currentPage != 0}" class="page-item"><a th:href="@{'/businessTable/'+${currentPage - 1}}"
-				class="page-link" href="#">Previous</a></li>
-		<!-- <li th:classappend="${currentpage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"><a th:href="@{'/businessTable/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li> -->
-		<li th:if="${currentPage+1 != totalPages}" class="page-item"><a
-				th:href="@{'/businessTable/'+${currentPage + 1}}" class="page-link" href="#">Next</a></li>
-	</ul>
-</nav>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="glutenFree" th:value="1" /> Gluten
+								Free
+							</label>
+						</details>
 
-<div th:replace="fragments/footer :: Footer"></div>
-<style>
-	footer {
-		text-align: center;
-		padding: 3px;
-		background-color: lightgreen;
-		color: black;
-	}
-</style>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous"></script>
+						<details>
+							<summary>Food and Drinks</summary>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="pubs" th:value="1" /> Pubs
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="restaurants" th:value="1" />
+								Restaurants
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="bars" th:value="1" /> Bars
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="clubs" th:value="1" /> Clubs
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="buffets" th:value="1" /> Buffets
+							</label>
+
+						</details>
+
+						<details>
+							<summary>Other Businesses</summary>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="salons" th:value="1" /> Salons
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="apartments" th:value="1" /> Apartments
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="gyms" th:value="1" /> Gyms
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="bookstores" th:value="1" /> Bookstores
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="shopping" th:value="1" /> Shopping
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="stores" th:value="1" /> Stores
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="entertainments" th:value="1" />
+								Entertainment
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="arts" th:value="1" /> Arts
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="lounges" th:value="1" /> Lounges
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="doctors" th:value="1" /> Doctors
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="dentists" th:value="1" /> Dentists
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="chiropractors" th:value="1" />
+								Chiropractors
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="pet" th:value="1" /> Pets
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="automotive" th:value="1" /> Automotive
+								and
+								Cars
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="homeServices" th:value="1" /> Home
+								Services
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="banks" th:value="1" /> Banks
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="spas" th:value="1" /> Spas
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="education" th:value="1" /> Education
+							</label>
+							<label>
+								<input type="checkbox" class="ads_Checkbox" name="fitness" th:value="1" /> Fitness
+							</label>
+						</details>
+
+
+
+
+						<select name="foodOrigin" th:value="foodOrigin">
+							<option th:value="0" th:text="'Food Origin'">American</option>
+							<option th:value="Italian" th:text="Italian">Italian</option>
+							<option th:value="Vietnamese" th:text="Vietnamese">Vietnamese</option>
+							<option th:value="Korean" th:text="Korean">Korean</option>
+							<option th:value="Asian" th:text="Asian">Asian</option>
+							<option th:value="Japanese" th:text="Japanese">Japanese</option>
+							<option th:value="Chinese" th:text="Chinese">Chinese</option>
+							<option th:value="Mexican" th:text="Mexican">Mexican</option>
+							<option th:value="Moroccan" th:text="Moroccan">Moroccan</option>
+							<option th:value="French" th:text="French">French</option>
+							<option th:value="Filipino" th:text="Filipino">Filipino</option>
+							<option th:value="Irish" th:text="Irish">Irish</option>
+							<option th:value="Caribbean" th:text="Caribbean">Caribbean</option>
+							<option th:value="Thai" th:text="Thai">Thai</option>
+							<option th:value="Pakistani" th:text="Pakistani">Pakistani</option>
+							<option th:value="Idian" th:text="Indian">Indian</option>
+							<option th:value="'Middle Eastern'" th:text="'Middle Eastern'">Middle Eastern</option>
+							<option th:value="'Puerto Rican'" th:text="'Puerto Rican'">Puerto Rican</option>
+							<option th:value="Honduran" th:text="Honduran">Honduran</option>
+							<option th:value="Spanish" th:text="Spanish">Spanish</option>
+							<option th:value="Greek" th:text="Greek">Greek</option>
+							<option th:value="African" th:text="African">African</option>
+							<option th:value="Turkish" th:text="Turkish">Turkish</option>
+							<option th:value="Lebanese" th:text="Lebanese">Lebanese</option>
+							<option th:value="Greek" th:text="Greek">Greek</option>
+							<option th:value="American" th:text="American">American</option>
+
+						</select>
+
+						<select name="foodType" th:value="foodType">
+							<option th:value="0" th:text="'Food Type'">Food Type</option>
+							<option th:value="Ramen" th:text="Ramen">Ramen</option>
+							<option th:value="Seafood" th:text="Seafood">Seafood</option>
+							<option th:value="Burgers" th:text="Burgers">Burger</option>
+							<option th:value="Pizza" th:text="Pizza">Pizza</option>
+							<option th:value="'Ice Cream'" th:text="'Ice Cream'">Ice Cream</option>
+							<option th:value="'Hot Dogs'" th:text="'Hot Dogs'">Hot Dogs</option>
+							<option th:value="'Chicken Wings'" th:text="'Chicken Wings'">Chicken Wings</option>
+							<option th:value="'Frozen Yogurt'" th:text="'Frozen Yogurt'">Frozen Yogurt</option>
+							<option th:value="Sushi" th:text="Sushi">Sushi</option>
+							<option th:value="Bakeries" th:text="Bakeries">Bakeries</option>
+							<option th:value="Soup" th:text="Soup">Soup</option>
+							<option th:value="Cupcakes" th:text="Cupcakes">Cupcakes</option>
+							<option th:value="Steakhouses" th:text="Steakhouses">Steak</option>
+							<option th:value="Sandwiches" th:text="Sandwiches">Caribbean</option>
+							<option th:value="Bagels" th:text="Bagels">Bagels</option>
+							<option th:value="Donuts" th:text="Donuts">Donuts</option>
+							<option th:value="Kebab" th:text="Kebab">Kebab</option>
+							<option th:value="Desserts" th:text="Desserts">Desserts</option>
+							<option th:value="Barbeque" th:text="Barbeque">Barbeque</option>
+							<option th:value="Salad" th:text="Salad">Salad</option>
+							<option th:value="Pasta" th:text="Pasta">Pasta</option>
+							<option th:value="Bowls" th:text="Bowls">Bowls</option>
+							<option th:value="Tacos" th:text="Tacos">Tacos</option>
+							<option th:value="Pretzels" th:text="Pretzels">Pretzels</option>
+							<option th:value="Donuts" th:text="Donuts">Donuts</option>
+						</select>
+
+						<select name="drinkType" th:value="drinkType">
+							<option th:value="0" th:text="'Drink Type'">Drink Type</option>
+							<option th:value="Tea" th:text="Tea">Tea</option>
+							<option th:value="Coffee" th:text="Coffee">Coffee</option>
+							<option th:value="Cocktail" th:text="Cocktail">Cocktail</option>
+							<option th:value="Wine" th:text="Wine">Wine</option>
+							<option th:value="Smoothies" th:text="Smoothies">Smoothies</option>
+							<option th:value="Beer" th:text="Beer">Beer</option>
+							<option th:value="Spirits" th:text="Spirits">Spirits</option>
+							<option th:value="Juice" th:text="Juice">Juice</option>
+							<option th:value="'Bubble Tea'" th:text="'Bubble Tea'">Bubble Tea</option>
+						</select>
+
+						<div class="modal-footer">
+							<input type="submit" class="btn btn-primary" value="Submit">
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+
+	</form>
+
+
+
+	<div class="business " th:each="business: ${data}">
+		<span style="font-size:20.0pt" th:text="${business.name}"> </span>
+		<span th:text="${business.stars}" class="fa fa-star checked"> </span>
+		<span th:text="|(${business.reviewCount})|"> </span>
+		<span th:text="| · ${business.attributesRestaurantspricerange}|"> </span>
+		<span th:text="${business.attributesAgesallowed}" style="color : red"> </span>
+		<span th:text="${business.isOpen} ? 'OPEN' : 'CLOSED' "
+			th:style="${business.isOpen ? 'color:green' : 'color:red'}">
+		</span>
+		<form style="display:inline-block; float:right;" action="/toMap" method="POST">
+			<button class="btn" name="businessId" th:value="${business.businessId}"><i
+					class='fas fa-map-marker-alt'></i>
+			</button>
+		</form>
+		<br>
+		<span style="font-size:13.0pt" th:text="${business.categories}"> </span>
+		<br>
+
+		<span style="float:right; font-size:12.0pt" th:text="|${business.address}, ${business.city}|"> </span>
+		<br>
+		<span style="float:right; font-size:12.0pt" th:text="|${business.state}, ${business.postalCode}|"> </span>
+
+		<br>
+		<details>
+			<summary>Opening Hours</summary>
+			<span th:text="|Monday: ${business.hoursMonday}|">monday</span><br>
+			<span th:text="|Tuesday: ${business.hoursTuesday}|">tuesday</span><br>
+			<span th:text="|Wednesday: ${business.hoursWednesday}|">wednesday</span><br>
+			<span th:text="|Thursday: ${business.hoursThursday}|">thursday</span><br>
+			<span th:text="|Friday: ${business.hoursFriday}|">friday</span><br>
+			<span th:text="|Saturday: ${business.hoursSaturday}|">saturday</span><br>
+			<span th:text="|Sunday: ${business.hoursSunday}|">sunday</span><br>
+		</details>
+		<br>
+		<span th:text="${business.attributesBestnights}" style="color : red"> </span>
+		<span th:text="${business.attributesBusinessparking}" style="color : red"> </span>
+		<span th:text="${business.attributesDietaryrestrictions}" style="color : red"> </span>
+		<span th:text="${business.attributesGoodformeal}" style="color : red"> </span>
+		<span th:text="${business.attributesHairspecializesin}" style="color : red"> </span>
+		<span th:text="${business.attributesMusic}" style="color : red"> </span>
+		<br>
+		<span th:text="${business.attributesAmbience}" style="color : green"> </span>
+		<span th:text="${business.attributesHappyhour} ? 'Happy hour ·' : ''"
+			th:style="${business.attributesHappyhour ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesOutdoorseating} ? 'Outdoor Seating ·' : ''"
+			th:style="${business.attributesOutdoorseating ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesBikeparking} ? 'Bike Parking ·' : ''"
+			th:style="${business.attributesBikeparking ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesDrivethru} ? 'Has Drive-Thru ·' : ''"
+			th:style="${business.attributesDrivethru ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesGoodforkids} ? 'Good for Kids ·' : ''"
+			th:style="${business.attributesGoodforkids ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesRestaurantsdelivery} ? 'Delivery ·' : ''"
+			th:style="${business.attributesRestaurantsdelivery ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesRestaurantsreservations} ? 'Reservation ·' : ''"
+			th:style="${business.attributesRestaurantsreservations ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesRestaurantstakeout} ? 'Takeout ·' : ''"
+			th:style="${business.attributesRestaurantstakeout ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesRestaurantstableservice} ? 'Table Service ·' : ''"
+			th:style="${business.attributesRestaurantstableservice ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesWheelchairaccessible} ? 'Wheelchair Accessible ·' : ''"
+			th:style="${business.attributesWheelchairaccessible ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesRestaurantsgoodforgroups} ? 'Good for Groups ·' : ''"
+			th:style="${business.attributesRestaurantsgoodforgroups ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesRestaurantscounterservice} ? 'Counter Service ·' : ''"
+			th:style="${business.attributesRestaurantscounterservice ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesHastv} ? 'TV ·' : ''"
+			th:style="${business.attributesHastv ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesGoodfordancing} ? 'Good for Dancing ·' : ''"
+			th:style="${business.attributesGoodfordancing ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesDogsallowed} ? 'Dogs allowed ·' : ''"
+			th:style="${business.attributesDogsallowed ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesCorkage} ? 'Corkage Fee ·' : ''"
+			th:style="${business.attributesCorkage ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesCoatcheck} ? 'Coat Check ·' : ''"
+			th:style="${business.attributesCoatcheck ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesCaters} ? 'Caters ·' : ''"
+			th:style="${business.attributesCaters ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesByappointmentonly} ? 'By Appointment Only ·' : ''"
+			th:style="${business.attributesByappointmentonly ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesBusinessacceptscreditcards} ? 'Takes Credit Card ·' : ''"
+			th:style="${business.attributesBusinessacceptscreditcards ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesBusinessacceptsbitcoin} ? 'Takes BitCoin ·' : ''"
+			th:style="${business.attributesBusinessacceptsbitcoin ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesByob} ? 'BYOB ·' : ''"
+			th:style="${business.attributesByob ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesAcceptsinsurance} ? 'Accepts Insurance ·' : ''"
+			th:style="${business.attributesAcceptsinsurance ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesOpen24hours} ? '24H ·' : ''"
+			th:style="${business.attributesOpen24hours ? 'color:green' : 'color:red'}"> </span>
+		<span th:text="${business.attributesHappyhour} ? 'Happy hour ·' : ''"
+			th:style="${business.attributesHappyhour ? 'color:orange' : 'color:red'}"> </span>
+
+		<span th:text="${#strings.defaultString(business.attributesAlcohol,'')}" style="color : green"> </span>
+		<span th:text="${#strings.defaultString(business.attributesByobcorkage,'')}" style="color : green"> </span>
+		<span th:text="${#strings.defaultString(business.attributesRestaurantsattire,'')}" style="color : green">
+		</span>
+		<span th:text="${#strings.defaultString(business.attributesSmoking,'')}" style="color : green"> </span>
+		<span th:text="${#strings.defaultString(business.attributesWifi,'')}" style="color : green"> </span>
+		<span th:text="${#strings.defaultString(attributesNoiselevel,'')}" style="color : green"> </span>
+		<br>
+		<form action="/toTips" method="POST">
+			<button name="businessId" th:value="${business.businessId}">See Comments and Reviews </button>
+		</form>
+	</div>
+
+	<nav aria-label="Page navigation">
+		<ul class="pagination">
+			<li th:if="${currentPage != 0}" class="page-item"><a th:href="@{'/businessTable/'+${currentPage - 1}}"
+					class="page-link" href="#">Previous</a></li>
+			<!-- <li th:classappend="${currentpage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"><a th:href="@{'/businessTable/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"></span></a></li> -->
+			<li th:if="${currentPage+1 != totalPages}" class="page-item"><a
+					th:href="@{'/businessTable/'+${currentPage + 1}}" class="page-link" href="#">Next</a></li>
+		</ul>
+	</nav>
+	<div th:replace="fragments/footer :: Footer"></div>
+	<style>
+		footer {
+			text-align: center;
+			padding: 3px;
+			background-color: lightgreen;
+			color: black;
+		}
+	</style>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>

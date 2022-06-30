@@ -37,7 +37,7 @@ body {
 
 .logo-title {
     font-size: 2.2em;
-    color: #660c0c;
+    color: #12660c;
     font-weight: bolder;
     letter-spacing: 2.5px;
     ;
@@ -92,21 +92,36 @@ body {
     align-items: center;
 }
 
-
 .search-bar {
-    width: 80%;
+    width: 24%;
     padding: 0.9em;
     font-size: 1.1em;
     height: 3.6em;
+    margin-right: 1%;
 }
 .search-submit {
     width: auto;
     border: none;
-    background: #660c0c;
+    background: #12660c;
     color: white;
     padding: 1em;
     font-weight: bolder;
     cursor: pointer;
+}
+
+
+.Buttons-area {
+    padding: 2em;
+    display: flex;
+    align-items: center;
+}
+
+.Buttons-element {
+    width: 35%;
+    padding: 0.9em;
+    font-size: 1.1em;
+    height: 3.6em;
+    margin-right: 2%;
 }
 
 .cities {
@@ -125,7 +140,7 @@ body {
 }
 .features {
     height: 55vh;
-    background-color: #3B0B0B;
+    background-color: #12660c;
     display: grid;
     grid-template-columns: 1fr 1fr;
     color: white;
@@ -227,7 +242,7 @@ body {
 @media only screen and (max-width: 900px) {
     .features {
         height: auto;
-        background-color: #3B0B0B;
+        background-color: #12660c;
         display: grid;
         grid-template-rows: 1fr 1fr 1fr;
         grid-template-columns: 1fr;
@@ -235,7 +250,7 @@ body {
     }
     .landing {
         display: grid;
-        grid-template-columns: ;
+        /* grid-template-columns: ; */
         height: 100vh;
     }
     .landing-image {
