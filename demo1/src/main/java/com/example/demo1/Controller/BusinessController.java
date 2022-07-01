@@ -31,7 +31,6 @@ public class BusinessController {
 		Pageable pageable = PageRequest.of(page, 10);
 
 		Page<Business> list = businessRepository.findAll(pageable);
-
 		for (Business business : list) {
 			business.attributesRestaurantspricerange = businessService.priceRangefinder(business);
 			business.attributesAmbience = businessService.ambienceChanger(business);
@@ -42,7 +41,6 @@ public class BusinessController {
 			business.attributesHairspecializesin = businessService.hairChanger(business);
 			business.attributesMusic = businessService.musicChanger(business);
 		}
-
 		model.addAttribute("data", list);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", list.getTotalPages());

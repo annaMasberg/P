@@ -83,8 +83,8 @@
 	<header th:insert="fragments/menu :: Hauptmenu"></header>
 
 	<div class="sticky">
-		<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i
-				class="fa fa-filter" aria-hidden="true"></i>
+		<button title="Filter " type="button" class="btn btn-primary" data-bs-toggle="modal"
+			data-bs-target="#exampleModal"> <i class="fa fa-filter" aria-hidden="true"></i>
 		</button>
 	</div>
 
@@ -414,9 +414,13 @@
 			th:style="${business.isOpen ? 'color:green' : 'color:red'}">
 		</span>
 		<form style="display:inline-block; float:right;" action="/toMap" method="POST">
-			<button class="btn" name="businessId" th:value="${business.businessId}"><i
+			<button title="Map" class="btn" name="businessId" th:value="${business.businessId}"><i
 					class='fas fa-map-marker-alt'></i>
 			</button>
+		</form>
+		<form style="display:inline-block; float:right; margin-right: 0.5em;" action="/toTips" method="POST">
+			<button title="See Comments" class="btn" name="businessId" th:value="${business.businessId}"><i
+					class="fas fa-comment-alt"></i></button>
 		</form>
 		<br>
 		<span style="font-size:13.0pt" th:text="${business.categories}"> </span>
@@ -505,9 +509,6 @@
 		<span th:text="${#strings.defaultString(business.attributesWifi,'')}" style="color : green"> </span>
 		<span th:text="${#strings.defaultString(attributesNoiselevel,'')}" style="color : green"> </span>
 		<br>
-		<form action="/toTips" method="POST">
-			<button name="businessId" th:value="${business.businessId}">See Comments and Reviews </button>
-		</form>
 	</div>
 
 	<nav aria-label="Page navigation">
