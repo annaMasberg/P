@@ -35,6 +35,7 @@ public class MapController {
 	public String businesstoMap(Model model, @RequestParam String businessId) {
 		model.addAttribute("apikey", tomTomApiKey);
 		List<Location> locations = businessService.locator(businessId);
+		
 		model.addAttribute("coolLocations", locations);
 		return "map";
 	}

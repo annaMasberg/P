@@ -413,12 +413,12 @@
 		<span th:text="${business.isOpen} ? 'OPEN' : 'CLOSED' "
 			th:style="${business.isOpen ? 'color:green' : 'color:red'}">
 		</span>
-		<form style="display:inline-block; float:right;" action="/toMap" method="POST">
+		<form  target="print_popup" onsubmit="window.open('about:blank','print_popup','width=1000,height=800');" style="display:inline-block; float:right;" action="/toMap" method="POST">
 			<button title="Map" class="btn" name="businessId" th:value="${business.businessId}"><i
 					class='fas fa-map-marker-alt'></i>
 			</button>
 		</form>
-		<form style="display:inline-block; float:right; margin-right: 0.5em;" action="/toTips" method="POST">
+		<form target="print_popup" onsubmit="window.open('about:blank','print_popup','width=1000,height=800');" style="display:inline-block; float:right; margin-right: 0.5em;" action="/toTips" method="POST">
 			<button title="See Comments" class="btn" name="businessId" th:value="${business.businessId}"><i
 					class="fas fa-comment-alt"></i></button>
 		</form>
@@ -430,7 +430,6 @@
 		<br>
 		<span style="float:right; font-size:12.0pt" th:text="|${business.state}, ${business.postalCode}|"> </span>
 
-		<br>
 		<details>
 			<summary>Opening Hours</summary>
 			<span th:text="|Monday: ${business.hoursMonday}|">monday</span><br>
@@ -498,8 +497,6 @@
 			th:style="${business.attributesAcceptsinsurance ? 'color:green' : 'color:red'}"> </span>
 		<span th:text="${business.attributesOpen24hours} ? '24H ·' : ''"
 			th:style="${business.attributesOpen24hours ? 'color:green' : 'color:red'}"> </span>
-		<span th:text="${business.attributesHappyhour} ? 'Happy hour ·' : ''"
-			th:style="${business.attributesHappyhour ? 'color:orange' : 'color:red'}"> </span>
 
 		<span th:text="${#strings.defaultString(business.attributesAlcohol,'')}" style="color : green"> </span>
 		<span th:text="${#strings.defaultString(business.attributesByobcorkage,'')}" style="color : green"> </span>
